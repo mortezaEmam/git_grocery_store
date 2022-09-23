@@ -13,12 +13,7 @@ class User extends Authenticatable
 {
     use LaratrustUserTrait;
 
-
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded=[];
 
 
 }
