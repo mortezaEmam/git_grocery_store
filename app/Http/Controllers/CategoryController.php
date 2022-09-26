@@ -14,12 +14,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::query()->where('parent_id',null)->get();
-        foreach (Category::all()->get() as $category)
-        {
-            $subcategories[]=Category::getSubCategories($category);
-            }
-        return view('admin.category.index',compact('categories','subcategories'));
+
+        $categories = Category::all();
+
+        return view('admin.category.index',compact('categories'));
     }
 
     /**
@@ -29,7 +27,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $categoryies=Category::query()->where('parent_id',0)->get();
+        return view('admin.category.create',compact('categoryies'));
     }
 
     /**
@@ -40,7 +39,25 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        if(filled($request->status))
+        {
+            $status=$request->status;
+        }
+        else
+        {
+            $status='off';
+        }
+        Category::query()->create([
+                'title'=>$request->title,
+                'parent_id'=>$request->parent_id,
+                'sort'=>$request->sort,
+                'status'=>$status,
+            ]
+
+
+        );
+        return  redirect()->route('category.index');
     }
 
     /**
@@ -60,31 +77,52 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
+
     public function edit(Category $category)
     {
-        //
+        $categories=Category::query()->where('parent_id',0)->get();
+
+        return view('Admin.category.edit',compact('category','categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Category $category)
     {
-        //
+
+        if(filled($request->status))
+        {
+            $status=$request->status;
+        }
+        else
+        {
+            $status='off';
+        }
+        Category::query()->where('id',$category->id)->update([
+            'title'=>$request->title,
+            'parent_id'=>$request->parent_id,
+            'sort'=>$request->input('sort'),
+            'status'=>$status,
+        ]);
+
+
+        return  redirect()->route('category.index');
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Category $category)
     {
-        //
+        $temp=Category::getSubCategories($category);
+
+        if(!filled($temp)){
+            Category::query()->where('id',$category->id)->delete();
+            return  redirect()->route('category.index');
+        }
+        else
+        {
+            $message='حدف این فیلد به دلیل سردسته بودن امکان پذیر نمی باشد!!';
+            return  abort('403',$message);
+
+        }
+
+
     }
 }

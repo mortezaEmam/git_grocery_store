@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Description extends Model
 {
     use HasFactory;
-    public function product()
+    protected $guarded=[];
+    public function descriptionable()
     {
-        return $this->belongsTo(Product::class);
+        return $this->morphTo();
     }
 }

@@ -26,7 +26,7 @@ use \App\Http\Controllers\ProductController;
 //Route::get('/dashboard', function () {
 //    return view('dashboard');
 //})->middleware(['auth'])->name('dashboard');
-//Route::get('/logout',[AuthenticatedSessionController::class,'destroy'])->name('logout');
+Route::get('/logout',[LoginUserController::class,'destroy'])->name('logout');
 Route::get('/', [HomeController::class,'index'])->name('home');
 Route::prefix('user')->group(function (){
     Route::get('/register',[UserController::class,'create'])->name('user.register');
@@ -34,7 +34,9 @@ Route::prefix('user')->group(function (){
     Route::get('/login',[LoginUserController::class,'create'])->name('user.login');
     Route::post('/login',[LoginUserController::class,'store'])->name('user.login');
 });
-
+Route::prefix('admin')->middleware(['auth'])->group(function (){
+    Route::get('/',[AdminController::class,'index'])->name('admin.index');
+});
 
 
 
@@ -65,3 +67,4 @@ Route::prefix('product')->group(function (){
     Route::get('{product}/destroy',[ProductController::class,'destroy'])->name('product.destroy');
 });
 
+Route::post('{description}/deleteDescription',[ProductController::class,'getDestoryDescriptionId'])->name('description.destroy');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Description;
 use App\Models\File;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -32,8 +33,7 @@ class ProductController extends Controller
     public function create()
     {
 
-        $categories=Category::all();
-//        $quantities=Quantity::all();
+        $categories=Category::query()->where('status','on')->get();
         return view('Admin.product.create',compact('categories'));
 
     }
@@ -46,6 +46,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
         if($request->has('status')=='')
         {
             $status='off';
@@ -57,7 +58,6 @@ class ProductController extends Controller
             'title'=>$request->name,
             'short_description'=>$request->short_description,
             'description'=>$request->description,
-            'description_id'=>null,
             'price'=>$request->price,
             'category_id'=>$request->category_id,
             'status'=>$status,
@@ -65,13 +65,40 @@ class ProductController extends Controller
         ]);
         if($request->hasFile('thumbnail'))
         {
-            $path='public/product';
+            $path='public/product/';
             $pic=$request->file('thumbnail');
             $file=File::uploadfile($pic,$path);
             $product->file()->save($file);
 
 
         }
+        if($request->title[0] and $request->icon[0] )
+        {
+            if (is_array($request->title) && is_array($request->icon)) {
+               foreach ($request->title as $key=>$item)
+               {
+
+                   $description=new Description([
+                       'title'=>$request->title[$key],
+                       'icon'=>$request->icon[$key],
+
+                   ]);
+                   $product->descriptions()->save($description);
+               }
+            }
+            else {
+                $description=new Description([
+                    'title'=>$request->title,
+                    'icon'=>$request->icon,
+
+                ]);
+                $product->descriptions()->save($description);
+            }
+
+
+
+        }
+
 
         return redirect()->route('product.index');
     }
@@ -87,8 +114,7 @@ class ProductController extends Controller
         $categories=Category::query()->where('parent_id',0)->where('status','on')->orderBy('sort')->get();;
 
 
-        $find_image=$product->file;
-        $url_file=Storage::url($find_image->url.'/'.$find_image->name);
+        $url_file=Product::getImageUrl($product);
         return view('single',compact('url_file','product','categories'));
     }
 
@@ -101,24 +127,12 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
 
-//        $quantities=$product->quantitys;
+        $descriptions=$product->descriptions;
+
         $categories=Category::all();
-        $find_image=$product->file;
-        $url_file=Storage::url($find_image->url.'/'.$find_image->name);
-        if(filled($find_image))
-        {
-            $image_url=$url_file;
-
-        }
-        else{
-            $image_url='';
-
-
-        }
-
-
-
-        return view('Admin.product.edit',compact('categories','product','image_url'));
+        $url_file=Product::getImageUrl($product);
+//        dd($url_file);
+        return view('Admin.product.edit',compact('categories','product','url_file','descriptions'));
     }
     /**
      * Update the specified resource in storage.
@@ -129,35 +143,56 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        if($request->has('status')=='')
-        {
-            $status='off';
-        }
-        else{
-            $status='on';
+
+        if ($request->has('status') == '') {
+            $status = 'off';
+        } else {
+            $status = 'on';
         }
         $product->update([
-            'title'=>$request->name,
-            'short_description'=>$request->short_description,
-            'description'=>$request->description,
-            'description_id'=>null,
-            'price'=>$request->price,
-            'category_id'=>$request->category_id,
-            'status'=>$status,
+            'title' => $request->name,
+            'short_description' => $request->short_description,
+            'description' => $request->description,
+            'price' => $request->price,
+            'category_id' => $request->category_id,
+            'status' => $status,
         ]);
 
 
         if ($request->hasFile('thumbnail')) {
-            $find_image=$product->file;
-            $url_file=Storage::delete($find_image->url.'/'.$find_image->name);
+            $file=$product->file;
+
+            Storage::delete($file->url.$file->name);
             $product->file()->delete();
-            $path = 'public/product';
+
+            $path = 'public/product/';
             $pic = $request->file('thumbnail');
-            $file=File::uploadfile($pic,$path);
+            $file = File::uploadfile($pic, $path);
             $product->file()->save($file);
 
 
         }
+        if($request->title[0] and $request->icon[0] )
+        {
+            if (is_array($request->title) and is_array($request->icon)) {
+                foreach ($request->title as $key => $item) {
+
+                    $description = new Description([
+                        'title' => $request->title[$key],
+                        'icon' => $request->icon[$key],
+
+                    ]);
+                    $product->descriptions()->save($description);
+                }
+            } else {
+                $description = new Description([
+                    'title' => $request->title,
+                    'icon' => $request->icon,
+
+                ]);
+                $product->descriptions()->save($description);
+            }
+            }
 
         return redirect()->route('product.index');
     }
@@ -170,12 +205,22 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $find_image=$product->file;
-        $url_file=Storage::delete($find_image->url.'/'.$find_image->name);
+
+        Storage::delete(Product::getImageUrl($product));
         $product->file()->delete();
-//        $product->quantitys()->delete();
-        $product=Product::query()->find($product->id)->delete();
+        $product->descriptions()->delete();
+        Product::query()->find($product->id)->delete();
         return redirect()->route('product.index');
+    }
+    public function getDestoryDescriptionId(Request $request, Description $description)
+    {
+
+        $description->delete();
+
+        return redirect()->route('product.edit',['product'=>$request->product]);
+
+
+
     }
 
 }

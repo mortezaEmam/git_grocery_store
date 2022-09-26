@@ -1,6 +1,7 @@
 
 
-
+@extends('layouts.master')
+@section('content')
 	<div class="banner">
 		<div class="w3l_banner_nav_right">
 			<nav class="navbar nav_bottom">
@@ -168,7 +169,7 @@
 								<figure>
 									<div class="snipcart-item block" >
 										<div class="snipcart-thumb">
-											<a href="single.html"><img title=" " alt=" " src="{{asset('master/images/1.png')}}" /></a>
+											<a href=""><img title=" " alt=" " src="{{asset('master/images/1.png')}}" /></a>
 											<p>روغن آفتابگردان</p>
 											<h4>$7.99 <span>$10.00</span></h4>
 										</div>
@@ -328,3 +329,4 @@
 			</div>
 		</div>
 	</div>
+@endsection

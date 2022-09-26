@@ -11,17 +11,29 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-9">
-                                <input class="form-control inputbig" type="text" name="name" value="{{old('name',$product->title)}}">
+                                <input class="form-control inputbig" type="text" name="name" value="{{old('name',$product->title)}}" >
 
                                 <br>
                                 <input class="form-control inputbig" type="text" name="short_description" value="{{old('short_description',$product->short_description)}}"/>
                                 <br>
-                                <textarea class="form-control" name="description"  rows="12">{{old('description',$product->description)}}</textarea>
+                                <textarea class="form-control" name="description"  rows="12">{{old('description',$product->title)}}"</textarea>
 
                                 <br>
+
                                 <input type="button" class="btn-primary btn" id="quantiy" value="افزودن خصوصیت">
 
+                                <hr>
+                                <br>
+                                <div id="box-quantity" class="box-widget" style="display: none">
+                                    <h5>خصوصیات : </h5>
 
+                                    <div class="custom-control custom-checkbox">
+
+                                        @include('admin.product.quantity')
+
+                                    </div>
+
+                                </div>
                             </div>
 
                             <div class="col-md-3">
@@ -29,7 +41,7 @@
                                 <div class="box-widget">
                                     <h5>انتشار : </h5>
                                     <button class="btn btn-primary" type="submit">
-                                        ویرایش محصول
+                                        افزودن محصول
                                     </button>
                                     <br> <hr>
                                     <div class="custom-control custom-switch">
@@ -44,30 +56,14 @@
 
                                 <div class="box-widget">
                                     <h5>دسته : </h5>
-                                    <select class="form-control" name="category_id" id="">
-                                        <option value="">--انتخاب کنید--</option>
-                                        @foreach ($categories as $category)
-
-                                            @if($category->parent_id==0 AND $category->status=='on')
-                                                <option @if($product->category_id==$category->id) selected @endif value="{{ $category->id }}">+{{ $category->title }}</option>
-                                            @endif
-                                            @foreach ($categories as $subcat)
-                                                @if($subcat->parent_id==$category->id AND $subcat->status=='on')
-
-                                                    <option  @if($product->category_id==$subcat->id) selected @endif  class="alert-success " value="{{ $subcat->id }}">&nbsp&nbsp&nbsp&nbsp+&nbsp{{ $subcat->title }}</option>
-                                                @endif
-                                            @endforeach
-                                        @endforeach
-                                    </select>
-
-
+                                    @include('admin.product.category')
 
 
                                 </div>
 
                                 <div class="box-widget">
+                                    <img src="{{$url_file}}" style="width: 180px;height: auto">
                                     <h5>تصویر شاخص</h5>
-                                    <img src="{{$image_url}}" width="150px" style="height: auto" alt="محل نمایش تصویر">
                                     <input type="file" name="thumbnail" accept="image/*">
                                 </div>
 
@@ -75,12 +71,49 @@
 
                         </div>
                     </form>
+                    <table>
+                        <thead class="table table-hover table-bordered">
+                        <tr>
+                            <th>ردیف</th>
+                            <th>عنوان</th>
+                            <th>مقدار</th>
+                            <th>عملیات</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($descriptions as $item)
+
+                            <tr>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$item->title}}</td>
+                                <td>{{$item->icon}}</td>
+
+                                <td>
+                                    <form action="{{route('description.destroy',['description'=>$item->id])}}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="product" value="{{$product->id}}">
+                                        <button type="submit"  class="btn btn-danger btn-xs" >
+                                            <svg class="bi bi-trash" width="1.2em" height="1.2em"
+                                                 viewBox="0 0 16 16" fill="currentColor"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z"></path>
+                                                <path fill-rule="evenodd"
+                                                      d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                                                      clip-rule="evenodd"></path>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
         </div>
     </div>
-    <script src="{{asset('js/jquery-1.11.3.min.js')}}"></script>
+    <script src="{{asset('dashboard/js/jquery-1.11.3.min.js')}}"></script>
     <script>
 
         $(document).ready(function (){

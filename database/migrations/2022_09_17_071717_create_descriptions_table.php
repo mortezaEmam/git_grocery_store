@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('descriptions', function (Blueprint $table) {
             $table->id();
+            $table->morphs('descriptionable');
             $table->string('title');
             $table->string('icon');
             $table->timestamps();

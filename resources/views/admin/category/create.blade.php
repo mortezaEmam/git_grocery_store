@@ -19,11 +19,13 @@
                             <input class="form-control inputbig" type="text" name="sort" placeholder="ترتیب نمایش را بصورت عددی وارد کنید">
                             <br>
 
-                            <select class="form-control" name="parrent">
+                            <select class="form-control" name="parent_id">
                                 <option value="0">سرگروه</option>
-                                @foreach($categories as $category)
+                                @if(filled($categoryies))
+                                @foreach($categoryies as $category)
                                     <option value="{{ $category->id }}">{{ $category->title }}</option>
                                 @endforeach
+                                    @endif
                             </select><br>
 
                             <div class="custom-control custom-switch">

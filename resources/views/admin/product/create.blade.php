@@ -16,11 +16,22 @@
                                 <br>
                                 <input class="form-control inputbig" type="text" name="short_description" placeholder="توضیح کوتاه را اینجا وارد کنید"/>
                                 <br>
-                                <textarea class="form-control" name="description"  rows="12"></textarea>
+                                <textarea class="form-control" name="description"  rows="12" placeholder="توضیح کامل محصول را وارد کنید"></textarea>
 
                                 <br>
 
+                                <input type="button" class="btn-primary btn" id="quantiy" value="افزودن خصوصیت">
+                                <br>
+                                <div id="box-quantity" class="box-widget" style="display: none">
+                                    <h5>خصوصیات : </h5>
 
+                                    <div class="custom-control custom-checkbox">
+
+                                        @include('admin.product.quantity')
+
+                                    </div>
+
+                                </div>
                             </div>
 
                             <div class="col-md-3">
@@ -62,14 +73,14 @@
             </div>
         </div>
     </div>
-{{--    <script src="{{asset('js/jquery-1.11.3.min.js')}}"></script>--}}
-{{--    <script>--}}
+    <script src="{{asset('dashboard/js/jquery-1.11.3.min.js')}}"></script>
+    <script>
 
-{{--        $(document).ready(function (){--}}
+        $(document).ready(function (){
 
-{{--            $("#quantiy").click(function (){--}}
-{{--                $("#box-quantity").css("display","block");--}}
-{{--            });--}}
-{{--        })--}}
-{{--        </script>--}}
+            $("#quantiy").click(function (){
+                $("#box-quantity").css("display","block");
+            });
+        })
+        </script>
 @endsection

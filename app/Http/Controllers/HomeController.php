@@ -10,7 +10,7 @@ class HomeController extends Controller
     //
     public function index()
     {
-        dd(Auth::user());
-        return view('layouts.master');
+
+        return view('index');
     }
 }
