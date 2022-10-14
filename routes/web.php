@@ -7,6 +7,7 @@ use \App\Http\Controllers\LoginUserController;
 use \App\Http\Controllers\AdminController;
 use \App\Http\Controllers\CategoryController;
 use \App\Http\Controllers\ProductController;
+use \App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,7 @@ Route::prefix('category')->group(function (){
     Route::get('/create',[CategoryController::class,'create'])->name('category.create');
     Route::post('/store',[CategoryController::class,'store'])->name('category.store');
     Route::get('{category}/edit',[CategoryController::class,'edit'])->name('category.edit');
+    Route::get('{category}/show',[CategoryController::class,'show'])->name('category.show');
     Route::post('{category}/update',[CategoryController::class,'update'])->name('category.update');
     Route::get('{category}/destroy',[CategoryController::class,'destroy'])->name('category.destroy');
 });
@@ -66,5 +68,8 @@ Route::prefix('product')->group(function (){
     Route::post('{product}/update',[ProductController::class,'update'])->name('product.update');
     Route::get('{product}/destroy',[ProductController::class,'destroy'])->name('product.destroy');
 });
-
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::get('/cart/list', [CartController::class, 'index'])->name('cart.list');
+Route::post('/cart/', [CartController::class, 'store'])->name('cart.store');
+Route::post('/cart/destroy/', [CartController::class, 'destroy'])->name('cart.destroy');
 Route::post('{description}/deleteDescription',[ProductController::class,'getDestoryDescriptionId'])->name('description.destroy');

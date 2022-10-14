@@ -1,3 +1,6 @@
+
+
+
 <!--ترجمه شده توسط مرجع تخصصی برنامه نویسان-->
 <!DOCTYPE html>
 <html>
@@ -34,7 +37,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </script>
     <!-- start-smoth-scrolling -->
 </head>
+
 <body>
+
 <!-- header -->
 <!--ترجمه شده توسط مرجع تخصصی برنامه نویسان-->
 <div class="agileits_header">
@@ -60,9 +65,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="mega-dropdown-menu">
                     <div class="w3ls_vegetables">
                         <ul class="dropdown-menu drp-mnu">
-                            <li><a href="{{route('user.login')}}">
+                            <li><a href="login.html">
                                     ورود</a></li>
-                            <li><a href="{{route('user.register')}}">
+                            <li><a href="login.html">
                                     ثبت نام</a></li>
                         </ul>
                     </div>
@@ -100,10 +105,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="w3ls_logo_products_right1">
             <ul class="special_items">
                 <li><a href="events.html">رویدادها</a><i>/</i></li>
-                @auth
-                <li><a href="@if(@Auth()->user()->hasRole('admin')) admin/ @else{{route('home')}}@endauth">ورود به ناحیه کاربری</a><i>/</i></li>
-                @endauth
-                    <li><a href="about.html">درباره ما</a><i>/</i></li>
+                <li><a href="about.html">درباره ما</a><i>/</i></li>
                 <li><a href="products.html">
                         بهترین تخفیف</a><i>/</i></li>
                 <li><a href="services.html">خدمات</a></li>
@@ -118,16 +120,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="clearfix"> </div>
     </div>
 </div>
-<!-- //header -->
-<!--ترجمه شده توسط مرجع تخصصی برنامه نویسان-->
-<!-- banner -->
-
 @yield('content')
-
-
-<!-- //fresh-vegetables -->
-<!--ترجمه شده توسط مرجع تخصصی برنامه نویسان-->
-<!-- newsletter -->
 <div class="newsletter">
     <div class="container">
         <div class="w3agile_newsletter_right">
@@ -212,7 +205,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="w3_footer_grid_bottom">
                     <h4>
                         100٪ پرداخت امن</h4>
-                    <img src="{{asset('master/images/card.png')}}" alt=" " class="img-responsive" />
+                    <img src="images/card.png" alt=" " class="img-responsive" />
                 </div>
             </div>
             <div class="col-md-3 w3_footer_grid agile_footer_grids_w3_footer">
@@ -309,8 +302,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     });
 </script>
+@yield('scripts')
 </body>
 <!--ترجمه شده توسط مرجع تخصصی برنامه نویسان-->
 </html>
-
-

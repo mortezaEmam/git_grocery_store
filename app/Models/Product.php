@@ -39,4 +39,8 @@ class Product extends Model
 
         return $image_url;
     }
+    public static function getAllProducts()
+    {
+        return static::query()->where('status','on')->latest('created_at')->take('8')->get();
+    }
 }

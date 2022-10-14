@@ -41,7 +41,7 @@
                                 <div class="box-widget">
                                     <h5>انتشار : </h5>
                                     <button class="btn btn-primary" type="submit">
-                                        افزودن محصول
+                                         ویرایش محصول
                                     </button>
                                     <br> <hr>
                                     <div class="custom-control custom-switch">

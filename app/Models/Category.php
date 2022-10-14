@@ -19,4 +19,8 @@ class Category extends Model
     {
         return  Category::query()->where('parent_id', '=' , $category->id)->get();
     }
+    public static function getAllCategories()
+    {
+        return static::query()->where('status','on')->get()->sortBy('sort');
+    }
 }

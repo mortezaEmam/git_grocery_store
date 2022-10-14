@@ -1,332 +1,226 @@
-
-
 @extends('layouts.master')
 @section('content')
-	<div class="banner">
-		<div class="w3l_banner_nav_right">
-			<nav class="navbar nav_bottom">
-			 <!-- Brand and toggle get grouped for better mobile display -->
-			  <div class="navbar-header nav_2">
-				  <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
-					<span class="sr-only">تعویض ناوبری</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				  </button>
-			   </div>
-			   <!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-					<ul class="nav navbar-nav nav_1">
-						<li><a href="products.html">مواد غذایی مارک دار</a></li>
-						<li><a href="household.html">
-لوازم منزل</a></li>
-						<li class="dropdown mega-dropdown active">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-سبزیجات و میوه ها<span class="caret"></span></a>
-							<div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
-								<div class="w3ls_vegetables">
-									<ul>
-										<li><a href="vegetables.html">
-سبزیجات</a></li>
-										<li><a href="vegetables.html">
-میوه ها</a></li>
-									</ul>
-								</div>
-							</div>
-						</li>
-						<li><a href="kitchen.html">اشپزخانه</a></li>
-						<li><a href="short-codes.html">نمونه کدها</a></li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-نوشیدنی ها<span class="caret"></span></a>
-							<div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
-								<div class="w3ls_vegetables">
-									<ul>
-										<li><a href="drinks.html">
-نوشیدنی بدون الکل</a></li>
-										<li><a href="drinks.html">آب میوه</a></li>
-									</ul>
-								</div>
-							</div>
-						</li>
-						<li><a href="pet.html">مواد غذایی حیوان خانگی</a></li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">غذای یخ زده<span class="caret"></span></a>
-							<div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
-								<div class="w3ls_vegetables">
-									<ul>
-										<li><a href="frozen.html">
-اسنک منجمد</a></li>
-										<li><a href="frozen.html">عذای گیاهخوار</a></li>
-									</ul>
-								</div>
-							</div>
-						</li>
-						<li><a href="bread.html">
-نان و نانوایی</a></li>
-					</ul>
-				 </div><!-- /.navbar-collapse -->
-			</nav>
-		</div>
-		<div class="w3l_banner_nav_left">
-			<section class="slider">
-				<div class="flexslider" dir=ltr>
-					<ul class="slides">
-						<li>
-							<div class="w3l_banner_nav_left_banner">
-								<h3>درست کردن<span>غذای</span>تند</h3>
-								<div class="more">
-									<a href="products.html" class="button--saqui button--round-l button--text-thick" data-text="Shop now">
-فروشگاه در حال حاضر</a>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="w3l_banner_nav_left_banner1">
-								<h3>درست کردن<span>غذای</span>تند</h3>
-								<div class="more">
-									<a href="products.html" class="button--saqui button--round-l button--text-thick" data-text="Shop now">
-فروشگاه در حال حاضر</a>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="w3l_banner_nav_left_banner2">
-								<h3>تا<i>50%</i> off.</h3>
-								<div class="more">
-									<a href="products.html" class="button--saqui button--round-l button--text-thick" data-text="Shop now">
-فروشگاه در حال حاضر</a>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</section>
-			<!-- flexSlider -->
-				<link rel="stylesheet" href="{{asset('master/css/flexslider.css')}}" type="text/css" media="screen" property="" />
-				<script defer src="{{asset('master/js/jquery.flexslider.js')}}"></script>
-				<script type="text/javascript">
-				$(window).load(function(){
-				  $('.flexslider').flexslider({
-					animation: "slide",
-					start: function(slider){
-					  $('body').removeClass('loading');
-					}
-				  });
-				});
-			  </script>
-			<!-- //flexSlider -->
-		</div>
-		<div class="clearfix"></div>
-	</div>
-<!-- banner -->
-<!--ترجمه شده توسط مرجع تخصصی برنامه نویسان-->
-	<div class="banner_bottom">
-			<div class="wthree_banner_bottom_right_grid_sub">
-			</div>
-			<div class="wthree_banner_bottom_right_grid_sub1">
-				<div class="col-md-4 wthree_banner_bottom_right">
-					<div class="wthree_banner_bottom_right_grid">
-						<img src="{{asset('master/images/4.jpg')}}" alt=" " class="img-responsive" />
-						<div class="wthree_banner_bottom_right_grid_pos">
-							<h4>
-ارائه تخفیف<span>25%</span></h4>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 wthree_banner_bottom_right">
-					<div class="wthree_banner_bottom_right_grid">
-						<img src="{{asset('master/images/5.jpg')}}" alt=" " class="img-responsive" />
-						<div class="wthree_banner_btm_pos">
-							<h3>معرفی<span>
+    <div class="banner">
+        <div class="w3l_banner_nav_right">
+            <nav class="navbar nav_bottom">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header nav_2">
+                    <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+                        <span class="sr-only">تعویض ناوبری</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+        <ul class="nav navbar-nav nav_1">
+
+            @foreach($categories as $category)
+                @if($category->parent_id==0)
+                    <li class="dropdown mega-dropdown active">
+                        <a href="{{route('category.show',['category'=>$category->id])}}" class="dropdown-toggle" >{{$category->title}}<span class="caret"></span></a>
+                        @endif
+                        @foreach($categories as $sub)
+                            @if($sub->parent_id==$category->id)
+                                <div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
+                                    <div class="w3ls_vegetables">
+
+                                        <ul>
+                                            <li><a href="{{route('category.show',['category'=>$sub->id])}}">{{$sub->title}}</a></li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    </li>
+                    @endforeach
+        </ul>
+    </div><!-- /.navbar-collapse -->
+    </nav>
+    </div>
+    <div class="w3l_banner_nav_left">
+        <section class="slider">
+            <div class="flexslider" dir=ltr>
+                <ul class="slides">
+                    <li>
+                        <div class="w3l_banner_nav_left_banner">
+                            <h3>درست کردن<span>غذای</span>تند</h3>
+                            <div class="more">
+                                <a href="products.html" class="button--saqui button--round-l button--text-thick" data-text="Shop now">
+                                    فروشگاه در حال حاضر</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="w3l_banner_nav_left_banner1">
+                            <h3>درست کردن<span>غذای</span>تند</h3>
+                            <div class="more">
+                                <a href="products.html" class="button--saqui button--round-l button--text-thick" data-text="Shop now">
+                                    فروشگاه در حال حاضر</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="w3l_banner_nav_left_banner2">
+                            <h3>تا<i>50%</i> off.</h3>
+                            <div class="more">
+                                <a href="products.html" class="button--saqui button--round-l button--text-thick" data-text="Shop now">
+                                    فروشگاه در حال حاضر</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <!-- flexSlider -->
+        <link rel="stylesheet" href="{{asset('master/css/flexslider.css')}}" type="text/css" media="screen" property="" />
+        <script defer src="{{asset('master/js/jquery.flexslider.js')}}"></script>
+        <script type="text/javascript">
+            $(window).load(function(){
+                $('.flexslider').flexslider({
+                    animation: "slide",
+                    start: function(slider){
+                        $('body').removeClass('loading');
+                    }
+                });
+            });
+        </script>
+        <!-- //flexSlider -->
+    </div>
+    <div class="clearfix"></div>
+    </div>
+    <div class="banner_bottom">
+        <div class="wthree_banner_bottom_right_grid_sub">
+        </div>
+        <div class="wthree_banner_bottom_right_grid_sub1">
+            <div class="col-md-4 wthree_banner_bottom_right">
+                <div class="wthree_banner_bottom_right_grid">
+                    <img src="images/4.jpg" alt=" " class="img-responsive" />
+                    <div class="wthree_banner_bottom_right_grid_pos">
+                        <h4>
+                            ارائه تخفیف<span>25%</span></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 wthree_banner_bottom_right">
+                <div class="wthree_banner_bottom_right_grid">
+                    <img src="images/5.jpg" alt=" " class="img-responsive" />
+                    <div class="wthree_banner_btm_pos">
+                        <h3>معرفی<span>
 بهترین فروشگاه</span>برای<i>مواد غذایی</i></h3>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 wthree_banner_bottom_right">
-					<div class="wthree_banner_bottom_right_grid">
-						<img src="{{asset('master/images/6.jpg')}}" alt=" " class="img-responsive" />
-						<div class="wthree_banner_btm_pos1">
-							<h3>صرفه جویی<span>تا حد</span> $10</h3>
-						</div>
-					</div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-			<div class="clearfix"> </div>
-	</div>
-<!-- top-brands -->
-<!--ترجمه شده توسط مرجع تخصصی برنامه نویسان-->
-	<div class="top-brands">
-		<div class="container">
-			<h3>پیشنهاد ویژه</h3>
-			<div class="agile_top_brands_grids">
-				<div class="col-md-3 top_brand_right">
-					<div class="hover14 column">
-						<div class="agile_top_brand_right_grid">
-							<div class="tag"><img src="{{asset('master/images/tag.png')}}" alt=" " class="img-responsive" /></div>
-							<div class="agile_top_brand_right_grid1">
-								<figure>
-									<div class="snipcart-item block" >
-										<div class="snipcart-thumb">
-											<a href=""><img title=" " alt=" " src="{{asset('master/images/1.png')}}" /></a>
-											<p>روغن آفتابگردان</p>
-											<h4>$7.99 <span>$10.00</span></h4>
-										</div>
-										<div class="snipcart-details top_brand_home_details">
-											<button class="btn btn-danger my-cart-btn hvr-sweep-to-left" data-id="1" data-name="Fortune sunflower oil" data-summary="summary 1" data-price="7.99" data-quantity="1" data-image="images/1.png">
-اضافه کردن به سبد</button>
-										</div>
-									</div>
-								</figure>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 top_brand_right">
-					<div class="hover14 column">
-						<div class="agile_top_brand_right_grid">
-							<div class="agile_top_brand_right_grid1">
-								<figure>
-									<div class="snipcart-item block" >
-										<div class="snipcart-thumb">
-											<a href="single.html"><img title=" " alt=" " src="{{asset('master/images/3.png')}}" /></a>
-											<p>برنج باسماتی (5KG)</p>
-											<h4>$11.99 <span>$15.00</span></h4>
-										</div>
-										<div class="snipcart-details top_brand_home_details">
-											<button class="btn btn-danger my-cart-btn hvr-sweep-to-left" data-id="2" data-name="Indian gate basmati rise" data-summary="summary 2" data-price="11.99" data-quantity="1" data-image="images/3.png">اضافه کردن به سبد</button>
-										</div>
-									</div>
-								</figure>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 top_brand_right">
-					<div class="hover14 column">
-						<div class="agile_top_brand_right_grid">
-							<div class="agile_top_brand_right_grid_pos">
-								<img src="{{asset('master/images/offer.png')}}" alt=" " class="img-responsive" />
-							</div>
-							<div class="agile_top_brand_right_grid1">
-								<figure>
-									<div class="snipcart-item block">
-										<div class="snipcart-thumb">
-											<a href="single.html"><img src="{{asset('master/images/2.png')}}" alt=" " class="img-responsive" /></a>
-											<p>
-پپسی نوشابه (2 LTR)</p>
-											<h4>$8.00 <span>$10.00</span></h4>
-										</div>
-										<div class="snipcart-details top_brand_home_details">
-											<button class="btn btn-danger my-cart-btn hvr-sweep-to-left" data-id="3" data-name="Pepsi soft drink bottles" data-summary="summary 3" data-price="8.00" data-quantity="1" data-image="images/2.png">اضافه کردن به سبد</button>
-										</div>
-									</div>
-								</figure>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!--ترجمه شده توسط مرجع تخصصی برنامه نویسان-->
-				<div class="col-md-3 top_brand_right">
-					<div class="hover14 column">
-						<div class="agile_top_brand_right_grid">
-							<div class="agile_top_brand_right_grid_pos">
-								<img src="{{asset('master/images/offer.png')}}" alt=" " class="img-responsive" />
-							</div>
-							<div class="agile_top_brand_right_grid1">
-								<figure>
-									<div class="snipcart-item block">
-										<div class="snipcart-thumb">
-											<a href="single.html"><img src="{{asset('master/images/4.png')}}" alt=" " class="img-responsive" /></a>
-											<p>مواد غذایی (4Kg)</p>
-											<h4>$9.00 <span>$11.00</span></h4>
-										</div>
-										<div class="snipcart-details top_brand_home_details">
-											<button class="btn btn-danger my-cart-btn hvr-sweep-to-left" data-id="4" data-name="Dogs food" data-summary="summary 4" data-price="9.00" data-quantity="1" data-image="images/4.png">اضافه کردن به سبد</button>
-										</div>
-									</div>
-								</figure>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-		</div>
-	</div>
-<!-- //top-brands -->
-<!--ترجمه شده توسط مرجع تخصصی برنامه نویسان-->
-<!-- fresh-vegetables -->
-	<div class="fresh-vegetables">
-		<div class="container">
-			<h3>محصولات بالا</h3>
-			<div class="w3l_fresh_vegetables_grids">
-				<div class="col-md-3 w3l_fresh_vegetables_grid w3l_fresh_vegetables_grid_right">
-					<div class="w3l_fresh_vegetables_grid2">
-						<ul>
-							<li><i class="fa fa-check" aria-hidden="true"></i><a href="products.html">همه برندها</a></li>
-							<li><i class="fa fa-check" aria-hidden="true"></i><a href="vegetables.html">
-سبزیجات</a></li>
-							<li><i class="fa fa-check" aria-hidden="true"></i><a href="vegetables.html">میوه ها</a></li>
-							<li><i class="fa fa-check" aria-hidden="true"></i><a href="drinks.html">آب میوه</a></li>
-							<li><i class="fa fa-check" aria-hidden="true"></i><a href="pet.html">مواد غذایی </a></li>
-							<li><i class="fa fa-check" aria-hidden="true"></i><a href="bread.html">نان و نانوایی</a></li>
-							<li><i class="fa fa-check" aria-hidden="true"></i><a href="household.html">
-تصفیه</a></li>
-							<li><i class="fa fa-check" aria-hidden="true"></i><a href="products.html">
-ادویه ها</a></li>
-							<li><i class="fa fa-check" aria-hidden="true"></i><a href="products.html">میوه های خشک</a></li>
-							<li><i class="fa fa-check" aria-hidden="true"></i><a href="products.html">محصولات لبنی</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md-9 w3l_fresh_vegetables_grid_left">
-					<div class="col-md-4 w3l_fresh_vegetables_grid">
-						<div class="w3l_fresh_vegetables_grid1">
-							<img src="{{asset('master/images/8.jpg')}}" alt=" " class="img-responsive" />
-						</div>
-					</div>
-					<div class="col-md-4 w3l_fresh_vegetables_grid">
-						<div class="w3l_fresh_vegetables_grid1">
-							<div class="w3l_fresh_vegetables_grid1_rel">
-								<img src="{{asset('master/images/7.jpg')}}" alt=" " class="img-responsive" />
-								<div class="w3l_fresh_vegetables_grid1_rel_pos">
-									<div class="more m1">
-										<a href="products.html" class="button--saqui button--round-l button--text-thick" data-text="Shop now">
-فروشگاه در حال حاضر</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="w3l_fresh_vegetables_grid1_bottom">
-							<img src="{{asset('master/images/10.jpg')}}" alt=" " class="img-responsive" />
-							<div class="w3l_fresh_vegetables_grid1_bottom_pos">
-								<h5>پیشنهادهای ویژه</h5>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 w3l_fresh_vegetables_grid">
-						<div class="w3l_fresh_vegetables_grid1">
-							<img src="{{asset('master/images/9.jpg')}}" alt=" " class="img-responsive" />
-						</div>
-						<div class="w3l_fresh_vegetables_grid1_bottom">
-							<img src="{{asset('master/images/11.jpg')}}" alt=" " class="img-responsive" />
-						</div>
-					</div>
-					<div class="clearfix"> </div>
-					<div class="agileinfo_move_text">
-						<div class="agileinfo_marquee">
-							<h4>گرفتن<span class="blink_me">25% off</span> در مرتبه اول و همچنین کوپن هدیه گرفتن</h4>
-						</div>
-						<div class="agileinfo_breaking_news">
-							<span> </span>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-		</div>
-	</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 wthree_banner_bottom_right">
+                <div class="wthree_banner_bottom_right_grid">
+                    <img src="images/6.jpg" alt=" " class="img-responsive" />
+                    <div class="wthree_banner_btm_pos1">
+                        <h3>صرفه جویی<span>تا حد</span> $10</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+
+    <div class="top-brands">
+        <div class="container">
+            <h3>محصولات روز</h3>
+            <div class="agile_top_brands_grids">
+
+
+                @foreach($products as $product)
+                    @include('layouts.cart-product')
+                @endforeach
+
+                    <div class="clearfix"></div>
+                    <span class="text-center" style="background-color: blue;margin: 10px;" id="message"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="fresh-vegetables">
+        <div class="container">
+            <h3>محصولات بالا</h3>
+            <div class="w3l_fresh_vegetables_grids">
+                <div class="col-md-3 w3l_fresh_vegetables_grid w3l_fresh_vegetables_grid_right">
+                    <div class="w3l_fresh_vegetables_grid2">
+                        <ul>
+                            <li><i class="fa fa-check" aria-hidden="true"></i><a href="products.html">همه برندها</a></li>
+                            <li><i class="fa fa-check" aria-hidden="true"></i><a href="vegetables.html">
+                                    سبزیجات</a></li>
+                            <li><i class="fa fa-check" aria-hidden="true"></i><a href="vegetables.html">میوه ها</a></li>
+                            <li><i class="fa fa-check" aria-hidden="true"></i><a href="drinks.html">آب میوه</a></li>
+                            <li><i class="fa fa-check" aria-hidden="true"></i><a href="pet.html">مواد غذایی </a></li>
+                            <li><i class="fa fa-check" aria-hidden="true"></i><a href="bread.html">نان و نانوایی</a></li>
+                            <li><i class="fa fa-check" aria-hidden="true"></i><a href="household.html">
+                                    تصفیه</a></li>
+                            <li><i class="fa fa-check" aria-hidden="true"></i><a href="products.html">
+                                    ادویه ها</a></li>
+                            <li><i class="fa fa-check" aria-hidden="true"></i><a href="products.html">میوه های خشک</a></li>
+                            <li><i class="fa fa-check" aria-hidden="true"></i><a href="products.html">محصولات لبنی</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-9 w3l_fresh_vegetables_grid_left">
+                    <div class="col-md-4 w3l_fresh_vegetables_grid">
+                        <div class="w3l_fresh_vegetables_grid1">
+                            <img src="images/8.jpg" alt=" " class="img-responsive" />
+                        </div>
+                    </div>
+                    <div class="col-md-4 w3l_fresh_vegetables_grid">
+                        <div class="w3l_fresh_vegetables_grid1">
+                            <div class="w3l_fresh_vegetables_grid1_rel">
+                                <img src="images/7.jpg" alt=" " class="img-responsive" />
+                                <div class="w3l_fresh_vegetables_grid1_rel_pos">
+                                    <div class="more m1">
+                                        <a href="products.html" class="button--saqui button--round-l button--text-thick" data-text="Shop now">
+                                            فروشگاه در حال حاضر</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w3l_fresh_vegetables_grid1_bottom">
+                            <img src="images/10.jpg" alt=" " class="img-responsive" />
+                            <div class="w3l_fresh_vegetables_grid1_bottom_pos">
+                                <h5>پیشنهادهای ویژه</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 w3l_fresh_vegetables_grid">
+                        <div class="w3l_fresh_vegetables_grid1">
+                            <img src="images/9.jpg" alt=" " class="img-responsive" />
+                        </div>
+                        <div class="w3l_fresh_vegetables_grid1_bottom">
+                            <img src="images/11.jpg" alt=" " class="img-responsive" />
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                    <div class="agileinfo_move_text">
+                        <div class="agileinfo_marquee">
+                            <h4>گرفتن<span class="blink_me">25% off</span> در مرتبه اول و همچنین کوپن هدیه گرفتن</h4>
+                        </div>
+                        <div class="agileinfo_breaking_news">
+                            <span> </span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+
+@endsection
+
+@section('scripts')
+<script>
+    $('#cart_count').click(function (){
+        console.log('y');
+    })
+
+</script>
 @endsection

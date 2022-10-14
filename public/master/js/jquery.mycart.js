@@ -45,7 +45,8 @@
     /*
     PRIVATE
     */
-    localStorage.products = localStorage.products ? localStorage.products : "";
+    var products = $('#basket').val() ? $('#basket').val() : "";
+    console.log(products);
     var getIndexOfProduct = function(id){
       var productIndex = -1;
       var products = getAllProducts();
