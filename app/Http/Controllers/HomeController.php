@@ -22,9 +22,25 @@ class HomeController extends Controller
 //        else{
 //            dump('no');
 //        }
-//        dd(session()->all());
+//        session()->flush();
+//session(['c'=>1]);
+//dd(session()->all());
+//dd($cart['title']);
+//
+//        foreach ($products  as $product) {
+//            if (session()->has('cart-product' . $product->id)) {
+//                $cart = session('cart-product' . $product->id);
+//                $temp=['id'=>'cart-product'.$product->id,
+//                    'title' => $cart['title'],
+//                    'quantity'=>$cart['quantity'],
+//                    'image'=>Product::getImageUrl($product),
+//                    'price'=>$product->price,];
+//                dump($temp);
+//            }
+//        }
+//        dd($cart['title']);
 
-
+//            dd($cart)/;
         return view('index');
 }
 }

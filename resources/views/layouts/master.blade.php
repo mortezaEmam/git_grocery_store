@@ -13,6 +13,7 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
         function hideURLbar(){ window.scrollTo(0,1); } </script>
+
     <!-- //for-mobile-apps -->
     <link href="{{asset('master/css/bootstrap.css')}}" rel="stylesheet" type="text/css" media="all" />
     <link href="{{asset('master/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
@@ -53,15 +54,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <input type="submit" value=" ">
         </form>
     </div>
-    <div class="product_list_header">
+    <div class="product_list_header" onclick="showlist()">
         <div style="cursor: pointer;">
-            <span class="glyphicon glyphicon-shopping-cart my-cart-icon"><i class="badge badge-notify my-cart-badge"></i></span>
+            <span class="glyphicon glyphicon-shopping-cart my-cart-icon"><i class="badge badge-notify my-cart-badge" ></i></span>
+
         </div>
     </div>
     <div class="w3l_header_left">
         <ul>
             <li class="dropdown profile_details_drop">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i><span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i><span></span></a>
                 <div class="mega-dropdown-menu">
                     <div class="w3ls_vegetables">
                         <ul class="dropdown-menu drp-mnu">
@@ -120,6 +122,64 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="clearfix"> </div>
     </div>
 </div>
+
+<div class="modal fade in" id="my-cart-modal" style="display: none"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel"  aria-hidden="false">
+<div class="modal-dialog" role="document">
+    <div class="modal-content"><div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+                <span class="glyphicon glyphicon-shopping-cart"></span> My Cart
+            </h4>
+        </div>
+        <div class="modal-body">
+            <table class="table table-hover table-responsive" id="my-cart-table">
+                <tbody class="addProduct">
+
+{{dump($baskets)}}
+                <tr title="" id="product-cart-product14" data-price="">
+                    <td class="text-center" style="width: 30px;">
+                        <img width="30px" height="30px" src="/storage/product/1664742958-53.png">
+                    </td>
+                    <td>محصول دو</td>
+                    <td title="Unit Price">25000</td>
+                    <td title="Quantity">
+                        <input type="number" min="1" style="width: 70px;" class="my-product-quantity" value="1">
+                    </td>
+                    <td title="Total" class="my-product-total">25000</td>
+                    <td title="Remove from Cart" class="text-center" style="width: 30px;">
+                        <a href="javascript:void(0);" class="btn btn-xs btn-danger my-product-remove">X</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><strong>Total</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td><strong id="my-cart-grand-total">$36.980000000000004</strong></td>
+                    <td></td>
+                </tr>
+                <tr style="color: red">
+                    <td></td>
+                    <td><strong>Total (including discount)</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td><strong id="my-cart-discount-price">$36.980000000000004</strong></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" id="basket-close" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+
+</div>
+
 @yield('content')
 <div class="newsletter">
     <div class="container">
@@ -231,6 +291,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!--ترجمه شده توسط مرجع تخصصی برنامه نویسان-->
 <!-- Bootstrap Core JavaScript -->
 <script src="{{asset('master/js/bootstrap.min.js')}}"></script>
+
 <script>
     $(document).ready(function(){
         $(".dropdown").hover(
@@ -261,46 +322,35 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     });
 </script>
+
 <!-- //here ends scrolling icon -->
 <!--ترجمه شده توسط مرجع تخصصی برنامه نویسان-->
-<script type='text/javascript' src="{{asset('master/js/jquery.mycart.js')}}"></script>
-<script type="text/javascript">
-    $(function () {
+<script>
+    function showlist()
+    {
+        $('#my-cart-modal').css("display","block");
+        $('#basket-close').click(function (){
+            $('#my-cart-modal').css("display","none");
+        })
 
-        var goToCartIcon = function($addTocartBtn){
-            var $cartIcon = $(".my-cart-icon");
-            var $image = $('<img width="30px" height="30px" src="' + $addTocartBtn.data("image") + '"/>').css({"position": "fixed", "z-index": "999"});
-            $addTocartBtn.prepend($image);
-            var position = $cartIcon.position();
-            $image.animate({
+    }
 
-            }, 500 , "linear", function() {
-                $image.remove();
-            });
-        }
 
-        $('.my-cart-btn').myCart({
-            classCartIcon: 'my-cart-icon',
-            classCartBadge: 'my-cart-badge',
-            affixCartIcon: true,
-            checkoutCart: function(products) {
-                $.each(products, function(){
-                    console.log(this);
-                });
+  $(function () {
+        $.ajax({
+            type: "get",
+            url: "{{route('basket.index')}}",
+            data:{
+                _token:"{{csrf_token()}}",
+
             },
-            clickOnAddToCart: function($addTocart){
-                goToCartIcon($addTocart);
-            },
-            getDiscountPrice: function(products) {
-                var total = 0;
-                $.each(products, function(){
-                    total += this.quantity * this.price;
-                });
-                return total * 1;
+            success:function (result){
+
             }
-        });
 
+        })
     });
+
 </script>
 @yield('scripts')
 </body>

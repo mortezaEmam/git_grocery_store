@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Basket;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
@@ -34,8 +35,8 @@ class ViewServiceMasterProvider extends ServiceProvider
         view::composer('index',function ($view){
             $view->with('products',Product::getAllProducts());
         });
-        view::composer('layouts.master',function ($view){
-            $view->with('basket',Cart::getAllSession());
-        });
+//        view::composer('layouts.master',function ($view){
+//            $view->with('baskets',Basket::getAllSessionCart());
+//        });
     }
 }

@@ -16,11 +16,9 @@
 
                         </div>
                         <div class="snipcart-details top_brand_home_details">
-                            <form id="addProduct_{{$product->id}}" action="" >
+                            <form id="add-basket-{{$product->id}}" action="">
                                 @csrf
-                                <input type="hidden" name="productId" value="{{$product->id}}">
-                            <button type="submit" class="btn btn-danger my-cart-btn hvr-sweep-to-left"  onClick="addToCart({{$product->id}});">اضافه کردن به سبد</button>
-
+                            <button type="submit" class="btn btn-danger my-cart-btn hvr-sweep-to-left" onclick="addToCart({{$product->id}})">اضافه کردن به سبد</button>
                             </form>
                         </div>
                     </div>
@@ -29,38 +27,45 @@
         </div>
     </div>
 </div>
-<span id="pro_basket"></span>
 
 @section('scripts')
     <script>
+        function addToCart(productId){
+$('#add-basket-'+productId).on('submit',function (e){
+    e.preventDefault();
 
-        function AddToCart(productId) {
-            var count = 0;
-            $('#addProduct_' + productId).on('submit', function (e) {
-                e.preventDefault();
-                $.ajax({
-                    url: "{{route('cart.store')}}",
-                    type: "post",
-                    data: $(this).serialize(),
-                    success: function (result) {
-                        if (result.Success) {
-                            $("#message").html(result.message);
-                            $('#cart_count').text(result.count_basket);
+            $.ajax({
+                type: "post",
+                url: '/baskets/store/'+productId,
+                dataType:'json',
+                data:{
+                    _token:"{{csrf_token()}}",
 
-                        }
+                },
 
-                    },
-                    error: function () {
-                        $("#message").html(result.message);
-                        $('#cart_count').text(result.count_basket);
-                    }
+                success: function (result) {
+                    var product_id = result.id;
+                    var title = result.title;
+                    var quantity = result.quantity;
+                    var image = result.image;
+                    var price = result.price;
+                    var total = price * quantity;
+                    $('#my-cart-table').append(
+                        '<tr title="" id="product-'+ product_id+'" data-price="">' +
+                        '<td class="text-center" style="width: 30px;"><img width="30px" height="30px" src="' + image + '"/></td>' +
+                        '<td>' + title + '</td>' +
+                        '<td title="Unit Price">' + price + '</td>' +
+                        '<td title="Quantity"><input type="number" min="1" style="width: 70px;" class="my-product-quantity" value="' + quantity + '"/></td>' +
+                        '<td title="Total" class="my-product-total">' + total + '</td>' +
+                        '<td title="Remove from Cart" class="text-center" style="width: 30px;"><a href="javascript:void(0);" class="btn btn-xs btn-danger my-product-remove">X</a></td>' +
+                        '</tr>'
+                    );
 
+                },
+            });
 
-                })
-
-            })
+})
         }
-
 
     </script>
 

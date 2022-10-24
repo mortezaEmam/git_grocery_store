@@ -7,7 +7,8 @@ use \App\Http\Controllers\LoginUserController;
 use \App\Http\Controllers\AdminController;
 use \App\Http\Controllers\CategoryController;
 use \App\Http\Controllers\ProductController;
-use \App\Http\Controllers\CartController;
+use \App\Http\Controllers\OrderController;
+use \App\Http\Controllers\BasketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,7 @@ use \App\Http\Controllers\CartController;
 //    return view('dashboard');
 //})->middleware(['auth'])->name('dashboard');
 Route::get('/logout',[LoginUserController::class,'destroy'])->name('logout');
-Route::get('/', [HomeController::class,'index'])->name('home');
+Route::get('/', [HomeController::class,'index'])->name('home.index');
 Route::prefix('user')->group(function (){
     Route::get('/register',[UserController::class,'create'])->name('user.register');
     Route::post('/register',[UserController::class,'store'])->name('user.register');
@@ -68,8 +69,21 @@ Route::prefix('product')->group(function (){
     Route::post('{product}/update',[ProductController::class,'update'])->name('product.update');
     Route::get('{product}/destroy',[ProductController::class,'destroy'])->name('product.destroy');
 });
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-Route::get('/cart/list', [CartController::class, 'index'])->name('cart.list');
-Route::post('/cart/', [CartController::class, 'store'])->name('cart.store');
-Route::post('/cart/destroy/', [CartController::class, 'destroy'])->name('cart.destroy');
-Route::post('{description}/deleteDescription',[ProductController::class,'getDestoryDescriptionId'])->name('description.destroy');
+Route::prefix('orders')->group(function (){
+    Route::get('/',[OrderController::class,'index'])->name('order.index');
+    Route::get('/create',[OrderController::class,'create'])->name('order.create');
+    Route::post('/store',[OrderController::class,'store'])->name('order.store');
+    Route::get('{order}/show',[OrderController::class,'show'])->name('order.show');
+    Route::get('{order}/edit',[OrderController::class,'edit'])->name('order.edit');
+    Route::post('{order}/update',[OrderController::class,'update'])->name('order.update');
+    Route::get('{order}/destroy',[OrderController::class,'destroy'])->name('order.destroy');
+});
+Route::prefix('baskets')->group(function (){
+    Route::get('/',[BasketController::class,'index'])->name('basket.index');
+    Route::get('/create',[BasketController::class,'create'])->name('basket.create');
+    Route::post('/store/{productId}',[BasketController::class,'store'])->name('basket.store');
+    Route::get('{basket}/show',[BasketController::class,'show'])->name('basket.show');
+    Route::get('{basket}/edit',[BasketController::class,'edit'])->name('basket.edit');
+    Route::post('{basket}/update',[BasketController::class,'update'])->name('basket.update');
+    Route::get('{basket}/destroy',[BasketController::class,'destroy'])->name('basket.destroy');
+});
