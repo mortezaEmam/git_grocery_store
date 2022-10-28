@@ -16,8 +16,8 @@ class BasketController extends Controller
      */
     public function index()
     {
-        $baskets_sessin_cart=Basket::getAllSessionCart();
-        if(filled($baskets_sessin_cart)) {
+        $baskets_sessin_cart = Basket::getAllSessionCart();
+        if (filled($baskets_sessin_cart)) {
             foreach ($baskets_sessin_cart as $item) {
                 $basket_id[] = $item['id'];
                 $basket_title[] = $item['title'];
@@ -27,8 +27,7 @@ class BasketController extends Controller
                 $basket_total[] = $item['total'];
                 $basket_created_at[] = $item['created_at'];
             }
-        }
-        else{
+        } else {
             $basket_id[] = '';
             $basket_title[] = '';
             $basket_quantity[] = '';
@@ -39,15 +38,15 @@ class BasketController extends Controller
 
         }
         return \response()->json([
-            'product_number'=>count(Basket::getAllSessionCart()),
-            'total_baskets'=>Basket::getTotalSessionCart(),
-            'baskets_id'=>$basket_id,
-            'baskets_title'=>$basket_title,
-            'baskets_quantity'=>$basket_quantity,
-            'baskets_total'=>$basket_total,
-            'baskets_image'=>$basket_image,
-            'baskets_created_at'=>$basket_created_at,
-            'baskets_price'=>$basket_price,
+            'product_number' => count(Basket::getAllSessionCart()),
+            'total_baskets' => Basket::getTotalSessionCart(),
+            'baskets_id' => $basket_id,
+            'baskets_title' => $basket_title,
+            'baskets_quantity' => $basket_quantity,
+            'baskets_total' => $basket_total,
+            'baskets_image' => $basket_image,
+            'baskets_created_at' => $basket_created_at,
+            'baskets_price' => $basket_price,
 
         ]);
 //        $session_Basket_groups=self::getAllSessionCart();
@@ -75,39 +74,38 @@ class BasketController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store($productId)
     {
-        $product=Product::query()->where('id',$productId)->first();
-        if(session()->has('cart-product-'.$product->id)==false)
-        {
+        $product = Product::query()->where('id', $productId)->first();
+        if (session()->has('cart-product-' . $product->id) == false) {
 
-            $cart_new=[
-                'id'=>$product->id,
-                'title'=>$product->title,
-                'quantity'=>1,
-                'price'=>$product->price,
-                'total'=>$product->price,
-                'image'=>Product::getImageUrl($product),
-                'created_at'=>now(),
-                'updated_at'=>now(),
-                'status'=>'no-success'
+            $cart_new = [
+                'id' => $product->id,
+                'title' => $product->title,
+                'quantity' => 1,
+                'price' => $product->price,
+                'total' => $product->price,
+                'image' => Product::getImageUrl($product),
+                'created_at' => now(),
+                'updated_at' => now(),
+                'status' => 'no-success'
             ];
-            $basket=session(['cart-product-'.$product->id=>$cart_new]);
+            $basket = session(['cart-product-' . $product->id => $cart_new]);
         }
 
         $cart = session('cart-product-' . $product->id);
         return \response()->json([
 
-            'id'=>'cart-product'.$product->id,
+            'id' => 'cart-product' . $product->id,
             'title' => $cart['title'],
-            'quantity'=>$cart['quantity'],
-            'image'=>Product::getImageUrl($product),
-            'price'=>$product->price,
-            'product_number'=>count(Basket::getAllSessionCart()),
-            'total_baskets'=>Basket::getTotalSessionCart(),
+            'quantity' => $cart['quantity'],
+            'image' => Product::getImageUrl($product),
+            'price' => $product->price,
+            'product_number' => count(Basket::getAllSessionCart()),
+            'total_baskets' => Basket::getTotalSessionCart(),
 
         ]);
     }
@@ -115,7 +113,7 @@ class BasketController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Basket  $basket
+     * @param \App\Models\Basket $basket
      * @return \Illuminate\Http\Response
      */
     public function show(Basket $basket)
@@ -126,7 +124,7 @@ class BasketController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Basket  $basket
+     * @param \App\Models\Basket $basket
      * @return \Illuminate\Http\Response
      */
     public function edit(Basket $basket)
@@ -137,8 +135,8 @@ class BasketController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Basket  $basket
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Basket $basket
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Basket $basket)
@@ -149,7 +147,7 @@ class BasketController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Basket  $basket
+     * @param \App\Models\Basket $basket
      * @return \Illuminate\Http\Response
      */
     public function destroy(Basket $basket)
