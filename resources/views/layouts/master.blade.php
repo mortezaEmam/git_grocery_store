@@ -333,7 +333,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             '<td title="Unit Price">قیمت:' + price + '&nbsp;&nbsp;تومان  </td>' +
                             '<td title="Quantity">تعداد:<input type="number" min="1" style="width: 70px;" class="my-product-quantity" value="' + quantity + '"/></td>' +
                             '<td title="Total" class="my-product-total">' + total + '&nbsp;&nbsp;تومان</td>' +
-                            '<td title="Remove from Cart" class="text-center" style="width: 30px;"><a href="javascript:void(0);" class="btn btn-xs btn-danger my-product-remove">X</a></td>' +
+                            '<td title="Remove from Cart" class="text-center" style="width: 30px;"><button type="button" class="btn btn-xs btn-danger my-product-remove" onclick="delete_product(' + product_id + ')">X</button></td>' +
                             '</tr>'
                         );
                     }
@@ -356,6 +356,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             }
         })
     }
+
+    function delete_product(productId) {
+        $.ajax({
+            url: '/baskets/destroy/' + productId,
+            type: 'post',
+            data: {
+                _token: "{{csrf_token()}}",
+
+            },
+            success: function (result) {
+                showlist();
+
+            }
+        });
+
+    }
+
 
     $('#basket-close').click(function () {
         $('#my-cart-modal').css("display", "none");

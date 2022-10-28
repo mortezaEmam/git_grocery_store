@@ -36,6 +36,17 @@ class HomeController extends Controller
 //        }
 //       dd(Basket::getTotalSessionCart());
 //        dd('ok');
+//        $products=Product::query()->where('status','on')->get();
+//
+//        foreach ($products  as $key=>$product) {
+//            if (session()->has('cart-product-' . 15)) {
+//                $basket= session('cart-product-' . $product->id);
+//
+//            }
+//        }
+//        dd($basket['id']);
+//        $e=Basket::getFindIdSessionCart(14);
+//        dd($e['id']);
         return view('index');
 }
 }

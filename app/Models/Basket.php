@@ -34,7 +34,19 @@ class Basket extends Model
         }
         return $baskets;
     }
+    public static function getFindIdSessionCart($productId)
+    {
 
+
+            if (session()->has('cart-product-' . $productId)) {
+                $basket= session('cart-product-' . $productId);
+
+            }else{
+                $basket=0;
+            }
+
+        return $basket;
+    }
 
 }
 

@@ -49,16 +49,7 @@ class BasketController extends Controller
             'baskets_price' => $basket_price,
 
         ]);
-//        $session_Basket_groups=self::getAllSessionCart();
-//        if($session_Basket_groups)
-//        {
-//            $baskets=$session_Basket_groups;
-//        }
-//        else
-//        {
-//            $baskets='';
-//        }
-//        return \response()->json(['baskets'=>$baskets]);
+
     }
 
     /**
@@ -96,17 +87,8 @@ class BasketController extends Controller
             $basket = session(['cart-product-' . $product->id => $cart_new]);
         }
 
-        $cart = session('cart-product-' . $product->id);
         return \response()->json([
-
-            'id' => 'cart-product' . $product->id,
-            'title' => $cart['title'],
-            'quantity' => $cart['quantity'],
-            'image' => Product::getImageUrl($product),
-            'price' => $product->price,
             'product_number' => count(Basket::getAllSessionCart()),
-            'total_baskets' => Basket::getTotalSessionCart(),
-
         ]);
     }
 
@@ -150,9 +132,14 @@ class BasketController extends Controller
      * @param \App\Models\Basket $basket
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Basket $basket)
+    public function destroy($product)
     {
-        //
+
+        $find_session_cart=Basket::getFindIdSessionCart($product);
+        session()->forget('cart-product-'.$find_session_cart['id']);
+       return \response()->json([
+           'message'=>'ok',
+       ]);
     }
 
 }

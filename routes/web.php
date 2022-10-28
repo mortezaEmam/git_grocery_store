@@ -85,5 +85,5 @@ Route::prefix('baskets')->group(function (){
     Route::get('{basket}/show',[BasketController::class,'show'])->name('basket.show');
     Route::get('{basket}/edit',[BasketController::class,'edit'])->name('basket.edit');
     Route::post('{basket}/update',[BasketController::class,'update'])->name('basket.update');
-    Route::get('{basket}/destroy',[BasketController::class,'destroy'])->name('basket.destroy');
+    Route::post('/destroy/{basket}',[BasketController::class,'destroy'])->name('basket.destroy');
 });
