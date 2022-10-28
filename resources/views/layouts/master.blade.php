@@ -316,6 +316,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
             success: function (result) {
+
                 $('.my-cart-badge').text(result.product_number);
                 $('#my-cart-table').html("<span></span>");
                 if (result.product_number > 0) {
@@ -326,34 +327,38 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         var quantity = result.baskets_quantity[i];
                         var image = result.baskets_image[i];
                         var total = result.baskets_total[i];
+
+
                         $('#my-cart-table').append(
                             '<tr id="' + product_id + '" >' +
                             '<td class="text-center" style="width: 30px;"><img width="30px" height="30px" src="' + image + '"/></td>' +
                             '<td> نام کالا:' + title + '</td>' +
                             '<td title="Unit Price">قیمت:' + price + '&nbsp;&nbsp;تومان  </td>' +
-                            '<td title="Quantity">تعداد:<input type="number" min="1" style="width: 70px;" class="my-product-quantity" value="' + quantity + '"/></td>' +
+                            '<td title="Quantity">تعداد:<input onclick="update_product(' + product_id + ')" id="update-' + product_id + '" type="number" min="1" style="width: 70px;" class="my-product-quantity" value="' + quantity + '"/></td>' +
                             '<td title="Total" class="my-product-total">' + total + '&nbsp;&nbsp;تومان</td>' +
                             '<td title="Remove from Cart" class="text-center" style="width: 30px;"><button type="button" class="btn btn-xs btn-danger my-product-remove" onclick="delete_product(' + product_id + ')">X</button></td>' +
                             '</tr>'
                         );
+
                     }
+
+                    $('#my-cart-table').append(result.product_number > 0 ?
+                        '<tr>' +
+                        '<td></td>' +
+                        '<td><strong>جمع سبد</strong></td>' +
+                        '<td></td>' +
+                        '<td></td>' +
+                        '<td><strong class="my-cart-grand-total">' + result.total_baskets + '&nbsp;&nbsp;تومان</strong></td>' +
+                        '<td></td>' +
+                        '</tr>'
+                        : '<div class="alert alert-danger my-cart-empty-message text-center" role="alert">سبد خرید شما خالی هست</div>'
+                    );
 
 
                 }
-                $('#my-cart-table').append(result.product_number > 0 ?
-                    '<tr>' +
-                    '<td></td>' +
-                    '<td><strong>جمع سبد</strong></td>' +
-                    '<td></td>' +
-                    '<td></td>' +
-                    '<td><strong class="my-cart-grand-total">' + result.total_baskets + '&nbsp;&nbsp;تومان</strong></td>' +
-                    '<td></td>' +
-                    '</tr>'
-                    : '<div class="alert alert-danger my-cart-empty-message text-center" role="alert">سبد خرید شما خالی هست</div>'
-                );
-
 
             }
+
         })
     }
 
@@ -373,7 +378,45 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     }
 
+    function update_product(productId) {
+        var product_quantity = 1;
+        if ($('#update-' + productId).length) {
+            var new_quantity = $('#update-' + productId).val();
+            $.ajax({
+                url: '/baskets/update/' + productId,
+                type: 'post',
+                data: {
+                    _token: "{{csrf_token()}}",
+                    product_quantity: new_quantity,
 
+                },
+                success: function (result) {
+                    showlist();
+
+                }
+
+            })
+
+        }
+
+
+    }
+
+    {{--$('#update-'+productId).click(){--}}
+    {{--      $.ajax({--}}
+    {{--          url: '/baskets/update/' + productId,--}}
+    {{--          type: 'post',--}}
+    {{--          data: {--}}
+    {{--              _token: "{{csrf_token()}}",--}}
+
+    {{--          },--}}
+    {{--          success: function (result) {--}}
+    {{--              showlist();--}}
+
+    {{--          }--}}
+    {{--      });--}}
+
+    {{--  }--}}
     $('#basket-close').click(function () {
         $('#my-cart-modal').css("display", "none");
     });

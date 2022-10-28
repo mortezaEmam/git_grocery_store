@@ -6,6 +6,7 @@ use App\Models\Basket;
 use App\Models\Product;
 use http\Env\Response;
 use Illuminate\Http\Request;
+use mysql_xdevapi\Session;
 
 class BasketController extends Controller
 {
@@ -82,7 +83,6 @@ class BasketController extends Controller
                 'image' => Product::getImageUrl($product),
                 'created_at' => now(),
                 'updated_at' => now(),
-                'status' => 'no-success'
             ];
             $basket = session(['cart-product-' . $product->id => $cart_new]);
         }
@@ -121,9 +121,26 @@ class BasketController extends Controller
      * @param \App\Models\Basket $basket
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Basket $basket)
+    public function update(Request $request, $basket)
     {
-        //
+        $find_product_basket = Basket::getFindIdSessionCart($basket);
+        $product = Product::query()->find($basket);
+        $cart_new = [
+            'id' => $find_product_basket['id'],
+            'title' => $product->title,
+            'quantity' => $request->product_quantity,
+            'price' => $product->price,
+            'total' => $product->price * $request->product_quantity,
+            'image' => Product::getImageUrl($product),
+            'created_at' => $find_product_basket['created_at'],
+            'updated_at' => now(),
+        ];
+        \session()->put('cart-product-' . $basket, $cart_new);
+
+        return \response()->json([
+            'message' => 'ok change',
+
+        ]);
     }
 
     /**
@@ -135,11 +152,11 @@ class BasketController extends Controller
     public function destroy($product)
     {
 
-        $find_session_cart=Basket::getFindIdSessionCart($product);
-        session()->forget('cart-product-'.$find_session_cart['id']);
-       return \response()->json([
-           'message'=>'ok',
-       ]);
+        $find_session_cart = Basket::getFindIdSessionCart($product);
+        session()->forget('cart-product-' . $find_session_cart['id']);
+        return \response()->json([
+            'message' => 'ok',
+        ]);
     }
 
 }
