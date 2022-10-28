@@ -10,17 +10,30 @@ class Basket extends Model
     use HasFactory;
     protected $guarded=[];
 
-public function getAllSessionCart()
-{
-    $products=Product::query()->where('status','on')->get();
 
-    foreach ($products  as $product) {
-        if (session()->has('cart-product' . $product->id)) {
-            $baskets[] = session('cart-product' . $product->id);
+    public static function getTotalSessionCart()
+    {
+        $total=0;
+        $basket_groups=self::getAllSessionCart();
+        foreach ($basket_groups as $group)
+        {
+            $total+=$group['total'];
         }
+        return $total;
     }
-    return $baskets;
-}
+    public static function getAllSessionCart()
+    {
+        $baskets=[];
+        $products=Product::query()->where('status','on')->get();
+
+        foreach ($products  as $key=>$product) {
+            if (session()->has('cart-product-' . $product->id)) {
+                $baskets[$product->id]= session('cart-product-' . $product->id);
+
+            }
+        }
+        return $baskets;
+    }
 
 
 }

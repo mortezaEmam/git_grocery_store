@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Basket;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,35 +13,29 @@ class HomeController extends Controller
 
     public function index()
     {
-//        session(['cart'=>['id'=>1,'title'=>'ali','total'=>0,'qantity'=>0,'image'=>''],['id'=>2,'title'=>'hossen','total'=>0,'qantity'=>0,'image'=>'']]);
-//        dd(session()->all());
-//        if(session()->has('cart-10'))
+//        $baskets=BasketController::getAllSessionCart();
+//        if($baskets)
 //        {
-//            session()->forget('cart-10');
-//          dump('ok');
+//            dd('yes');
 //        }
-//        else{
-//            dump('no');
+//        else
+//        {
+//            dd('no');
+//            $baskets='';
 //        }
+//        dd(session()->all());
 //        session()->flush();
-//session(['c'=>1]);
-//dd(session()->all());
-//dd($cart['title']);
+//        $baskets=[];
+//        $total=[];
+//        $products=Product::query()->where('status','on')->get();
 //
-//        foreach ($products  as $product) {
-//            if (session()->has('cart-product' . $product->id)) {
-//                $cart = session('cart-product' . $product->id);
-//                $temp=['id'=>'cart-product'.$product->id,
-//                    'title' => $cart['title'],
-//                    'quantity'=>$cart['quantity'],
-//                    'image'=>Product::getImageUrl($product),
-//                    'price'=>$product->price,];
-//                dump($temp);
+//        foreach ($products  as $key=>$product) {
+//            if (session()->has('cart-product-'.$product->id)) {
+//                $baskets[$product->id] = session('cart-product-'.$product->id);
 //            }
 //        }
-//        dd($cart['title']);
-
-//            dd($cart)/;
+//       dd(Basket::getTotalSessionCart());
+//        dd('ok');
         return view('index');
 }
 }

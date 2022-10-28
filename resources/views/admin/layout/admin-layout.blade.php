@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-md-12">
 
-                <a class="btn btn-primary" href="{{route('home')}}">نمایش سایت</a>
+                <a class="btn btn-primary" href="{{route('home.index')}}">نمایش سایت</a>
                 <a class="btn btn-danger" href="{{route('logout')}}">خروج</a>
 
 

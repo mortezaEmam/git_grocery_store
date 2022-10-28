@@ -1,6 +1,3 @@
-
-
-
 <!--ترجمه شده توسط مرجع تخصصی برنامه نویسان-->
 <!DOCTYPE html>
 <html>
@@ -8,31 +5,39 @@
     <title>سایت فروشگاهی</title>
     <!-- for-mobile-apps -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords" content="Grocery Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-        function hideURLbar(){ window.scrollTo(0,1); } </script>
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        } </script>
 
     <!-- //for-mobile-apps -->
-    <link href="{{asset('master/css/bootstrap.css')}}" rel="stylesheet" type="text/css" media="all" />
-    <link href="{{asset('master/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{{asset('master/css/bootstrap.css')}}" rel="stylesheet" type="text/css" media="all"/>
+    <link href="{{asset('master/css/style.css')}}" rel="stylesheet" type="text/css" media="all"/>
     <!-- font-awesome icons -->
-    <link href="{{asset('master/css/font-awesome.css')}}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{{asset('master/css/font-awesome.css')}}" rel="stylesheet" type="text/css" media="all"/>
     <!-- //font-awesome icons -->
     <!-- js -->
     <script src="{{asset('master/js/jquery-1.11.1.min.js')}}"></script>
     <!-- //js -->
-    <link href='//fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic'
+          rel='stylesheet' type='text/css'>
+    <link
+        href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
+        rel='stylesheet' type='text/css'>
     <!-- start-smoth-scrolling -->
     <script type="text/javascript" src="{{asset('master/js/move-top.js')}}"></script>
     <script type="text/javascript" src="{{asset('master/js/easing.js')}}"></script>
     <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            $(".scroll").click(function(event){
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
                 event.preventDefault();
-                $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+                $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
             });
         });
     </script>
@@ -50,13 +55,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="w3l_search">
         <form action="#" method="post">
             <input type="text" name="Product" value="
-جستجو محصول ..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search a product...';}" required="">
+جستجو محصول ..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search a product...';}"
+                   required="">
             <input type="submit" value=" ">
         </form>
     </div>
     <div class="product_list_header" onclick="showlist()">
         <div style="cursor: pointer;">
-            <span class="glyphicon glyphicon-shopping-cart my-cart-icon"><i class="badge badge-notify my-cart-badge" ></i></span>
+            <span class="glyphicon glyphicon-shopping-cart my-cart-icon"><i
+                    class="badge badge-notify my-cart-badge">{{count($baskets)?count($baskets):''}}</i></span>
 
         </div>
     </div>
@@ -80,18 +87,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="w3l_header_left1">
         <h2><a href="mail.html">تماس با ما</a></h2>
     </div>
-    <div class="clearfix"> </div>
+    <div class="clearfix"></div>
 </div>
 <!-- script-for sticky-nav -->
 <!--ترجمه شده توسط مرجع تخصصی برنامه نویسان-->
 <script>
-    $(document).ready(function() {
-        var navoffeset=$(".agileits_header").offset().top;
-        $(window).scroll(function(){
-            var scrollpos=$(window).scrollTop();
-            if(scrollpos >=navoffeset){
+    $(document).ready(function () {
+        var navoffeset = $(".agileits_header").offset().top;
+        $(window).scroll(function () {
+            var scrollpos = $(window).scrollTop();
+            if (scrollpos >= navoffeset) {
                 $(".agileits_header").addClass("fixed");
-            }else{
+            } else {
                 $(".agileits_header").removeClass("fixed");
             }
         });
@@ -116,67 +123,40 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="w3ls_logo_products_right1">
             <ul class="phone_email">
                 <li><i class="fa fa-phone" aria-hidden="true"></i>(+0123) 234 567</li>
-                <li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:store@grocery.com">store@grocery.com</a></li>
+                <li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:store@grocery.com">store@grocery.com</a>
+                </li>
             </ul>
         </div>
-        <div class="clearfix"> </div>
+        <div class="clearfix"></div>
     </div>
 </div>
 
-<div class="modal fade in" id="my-cart-modal" style="display: none"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel"  aria-hidden="false">
-<div class="modal-dialog" role="document">
-    <div class="modal-content"><div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-            </button>
-            <h4 class="modal-title" id="myModalLabel">
-                <span class="glyphicon glyphicon-shopping-cart"></span> My Cart
-            </h4>
-        </div>
-        <div class="modal-body">
-            <table class="table table-hover table-responsive" id="my-cart-table">
-                <tbody class="addProduct">
+<div class="modal fade in" id="my-cart-modal" style="display: none" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <span class="glyphicon glyphicon-shopping-cart"></span> My Cart
+                </h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover table-responsive" id="my-cart-table">
+                    <tbody class="addProduct">
 
-{{dump($baskets)}}
-                <tr title="" id="product-cart-product14" data-price="">
-                    <td class="text-center" style="width: 30px;">
-                        <img width="30px" height="30px" src="/storage/product/1664742958-53.png">
-                    </td>
-                    <td>محصول دو</td>
-                    <td title="Unit Price">25000</td>
-                    <td title="Quantity">
-                        <input type="number" min="1" style="width: 70px;" class="my-product-quantity" value="1">
-                    </td>
-                    <td title="Total" class="my-product-total">25000</td>
-                    <td title="Remove from Cart" class="text-center" style="width: 30px;">
-                        <a href="javascript:void(0);" class="btn btn-xs btn-danger my-product-remove">X</a>
-                    </td>
-                </tr>
+                    </tbody>
 
-                <tr>
-                    <td></td>
-                    <td><strong>Total</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td><strong id="my-cart-grand-total">$36.980000000000004</strong></td>
-                    <td></td>
-                </tr>
-                <tr style="color: red">
-                    <td></td>
-                    <td><strong>Total (including discount)</strong></td>
-                    <td></td>
-                    <td></td>
-                    <td><strong id="my-cart-discount-price">$36.980000000000004</strong></td>
-                    <td></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" id="basket-close" data-dismiss="modal">Close</button>
+
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="basket-close" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
-</div>
 
 </div>
 
@@ -188,11 +168,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
         <div class="w3agile_newsletter_left">
             <form action="#" method="post">
-                <input type="email" name="ایمیل" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+                <input type="email" name="ایمیل" value="Email" onfocus="this.value = '';"
+                       onblur="if (this.value == '') {this.value = 'Email';}" required="">
                 <input type="submit" value="مشترک در حال حاضر">
             </form>
         </div>
-        <div class="clearfix"> </div>
+        <div class="clearfix"></div>
     </div>
 </div>
 <!-- //newsletter -->
@@ -259,13 +240,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 لورم ایپسوم یا طرح‌نما</a> طراحی گرافیک</span></li>
             </ul>
         </div>
-        <div class="clearfix"> </div>
+        <div class="clearfix"></div>
         <div class="agile_footer_grids">
             <div class="col-md-3 w3_footer_grid agile_footer_grids_w3_footer">
                 <div class="w3_footer_grid_bottom">
                     <h4>
                         100٪ پرداخت امن</h4>
-                    <img src="images/card.png" alt=" " class="img-responsive" />
+                    <img src="images/card.png" alt=" " class="img-responsive"/>
                 </div>
             </div>
             <div class="col-md-3 w3_footer_grid agile_footer_grids_w3_footer">
@@ -280,10 +261,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </ul>
                 </div>
             </div>
-            <div class="clearfix"> </div>
+            <div class="clearfix"></div>
         </div>
         <div class="wthree_footer_copy">
-            <p>کلیه حقوق مادی و معنوی برای مجموعه برنامه نویسان محفوظ می باشد<a href="http://barnamenevisan.org/">برنامه نویسان</a></p>
+            <p>کلیه حقوق مادی و معنوی برای مجموعه برنامه نویسان محفوظ می باشد<a href="http://barnamenevisan.org/">برنامه
+                    نویسان</a></p>
         </div>
     </div>
 </div>
@@ -293,14 +275,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{{asset('master/js/bootstrap.min.js')}}"></script>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $(".dropdown").hover(
-            function() {
-                $('.dropdown-menu', this).stop( true, true ).slideDown("fast");
+            function () {
+                $('.dropdown-menu', this).stop(true, true).slideDown("fast");
                 $(this).toggleClass('open');
             },
-            function() {
-                $('.dropdown-menu', this).stop( true, true ).slideUp("fast");
+            function () {
+                $('.dropdown-menu', this).stop(true, true).slideUp("fast");
                 $(this).toggleClass('open');
             }
         );
@@ -308,7 +290,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </script>
 <!-- here stars scrolling icon -->
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         /*
             var defaults = {
             containerID: 'toTop', // fading element id
@@ -318,7 +300,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             };
         */
 
-        $().UItoTop({ easingType: 'easeOutQuart' });
+        $().UItoTop({easingType: 'easeOutQuart'});
 
     });
 </script>
@@ -326,29 +308,57 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //here ends scrolling icon -->
 <!--ترجمه شده توسط مرجع تخصصی برنامه نویسان-->
 <script>
-    function showlist()
-    {
-        $('#my-cart-modal').css("display","block");
-        $('#basket-close').click(function (){
-            $('#my-cart-modal').css("display","none");
-        })
-
-    }
-
-
-  $(function () {
+    function showlist() {
+        $('#my-cart-modal').css("display", "block");
         $.ajax({
             type: "get",
-            url: "{{route('basket.index')}}",
-            data:{
-                _token:"{{csrf_token()}}",
+            url: '{{route('basket.index')}}',
 
-            },
-            success:function (result){
 
-            }
+            success: function (result) {
+                $('.my-cart-badge').text(result.product_number);
+                $('#my-cart-table').html("<span></span>");
+                if(result.product_number>0) {
+                for(var i=0;i<result.product_number;i++){
+                   var product_id=result.baskets_id[i];
+                   var title=result.baskets_title[i];
+                   var price=result.baskets_price[i];
+                   var quantity=result.baskets_quantity[i];
+                   var image=result.baskets_image[i];
+                   var total=result.baskets_total[i];
+                    $('#my-cart-table').append(
 
-        })
+                                '<tr id="' + product_id + '" >' +
+                                '<td class="text-center" style="width: 30px;"><img width="30px" height="30px" src="' + image + '"/></td>' +
+                                '<td> نام کالا:' + title + '</td>' +
+                                '<td title="Unit Price">قیمت:' + price + '&nbsp;&nbsp;تومان  </td>' +
+                                '<td title="Quantity">تعداد:<input type="number" min="1" style="width: 70px;" class="my-product-quantity" value="' + quantity + '"/></td>' +
+                                '<td title="Total" class="my-product-total">' + total + '&nbsp;&nbsp;تومان</td>' +
+                                '<td title="Remove from Cart" class="text-center" style="width: 30px;"><a href="javascript:void(0);" class="btn btn-xs btn-danger my-product-remove">X</a></td>' +
+                                '</tr>'
+                            );
+                    }
+
+
+
+                }
+                    $('#my-cart-table').append(result.product_number>0?
+                        '<tr>' +
+                        '<td></td>' +
+                        '<td><strong>جمع سبد</strong></td>' +
+                        '<td></td>' +
+                        '<td></td>' +
+                        '<td><strong class="my-cart-grand-total">'+result.total_baskets+'&nbsp;&nbsp;تومان</strong></td>' +
+                        '<td></td>' +
+                        '</tr>'
+                        : '<div class="alert alert-danger my-cart-empty-message text-center" role="alert">سبد خرید شما خالی هست</div>'
+                    );
+
+
+    }
+        })}
+    $('#basket-close').click(function () {
+        $('#my-cart-modal').css("display", "none");
     });
 
 </script>

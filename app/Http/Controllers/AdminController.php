@@ -15,14 +15,16 @@ class AdminController extends Controller
     //
     public function index()
     {
-//        dd(Auth::user()?'ok':'no');
-        if(Auth::user() and Auth::user()->hasRole('admin'))
+        if( Auth::user()->hasRole('admin'))
         {
+
 
             return view('admin.admin');
 
         }
         else{
+
+
             return  redirect()->route('user.login');
     }
 
