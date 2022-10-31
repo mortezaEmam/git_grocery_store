@@ -23,6 +23,10 @@ class Product extends Model
     {
         return $this->morphOne(File::class,'fileable');
     }
+    public function cart()
+    {
+        return $this->belongsTo(Cart::class);
+    }
     public static function getImageUrl($product)
     {
         $find_image=$product->file;

@@ -9,6 +9,8 @@ use \App\Http\Controllers\CategoryController;
 use \App\Http\Controllers\ProductController;
 use \App\Http\Controllers\OrderController;
 use \App\Http\Controllers\BasketController;
+use \App\Http\Controllers\CartController;
+use \App\Http\Controllers\TranscationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +71,15 @@ Route::prefix('product')->group(function (){
     Route::post('{product}/update',[ProductController::class,'update'])->name('product.update');
     Route::get('{product}/destroy',[ProductController::class,'destroy'])->name('product.destroy');
 });
+Route::prefix('transcations')->group(function (){
+    Route::get('/',[TranscationController::class,'index'])->name('transcation.index');
+    Route::post('/create',[TranscationController::class,'create'])->name('transcation.create');
+    Route::post('/store',[TranscationController::class,'store'])->name('transcation.store');
+    Route::get('{transcation}/show',[TranscationController::class,'show'])->name('transcation.show');
+    Route::get('{transcation}/edit',[TranscationController::class,'edit'])->name('transcation.edit');
+    Route::post('{transcation}/update',[TranscationController::class,'update'])->name('transcation.update');
+    Route::get('{transcation}/destroy',[TranscationController::class,'destroy'])->name('transcation.destroy');
+});
 Route::prefix('orders')->group(function (){
     Route::get('/',[OrderController::class,'index'])->name('order.index');
     Route::get('/create',[OrderController::class,'create'])->name('order.create');
@@ -77,6 +88,15 @@ Route::prefix('orders')->group(function (){
     Route::get('{order}/edit',[OrderController::class,'edit'])->name('order.edit');
     Route::post('{order}/update',[OrderController::class,'update'])->name('order.update');
     Route::get('{order}/destroy',[OrderController::class,'destroy'])->name('order.destroy');
+});
+Route::prefix('carts')->middleware(['auth'])->group(function (){
+    Route::get('/',[CartController::class,'index'])->name('cart.index');
+    Route::get('/create',[CartController::class,'create'])->name('cart.create');
+    Route::post('/store',[CartController::class,'store'])->name('cart.store');
+    Route::get('{cart}/show',[CartController::class,'show'])->name('cart.show');
+    Route::get('{cart}/edit',[CartController::class,'edit'])->name('cart.edit');
+    Route::post('{cart}/update',[CartController::class,'update'])->name('cart.update');
+    Route::get('{cart}/destroy',[CartController::class,'destroy'])->name('cart.destroy');
 });
 Route::prefix('baskets')->group(function (){
     Route::get('/',[BasketController::class,'index'])->name('basket.index');

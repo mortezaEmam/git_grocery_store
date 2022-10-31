@@ -18,19 +18,6 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-         $user=\App\Models\User::query()->create([
-             'username' => 'morteza',
-             'email' => 'morteza72@gmail.com',
-             'password'=>Hash::make('123456'),
-             'phone'=>'09154868372',
-         ]);
-
-        \App\Models\Role::query()->create([
-            'name'=>'admin',
-        ]);
-        \App\Models\Role::query()->create([
-            'name'=>'user',
-        ]);
-        $user->roles()->attach([1=>['user_type'=>'admin']]);
+        $this->call(UserSeeder::class);
     }
 }

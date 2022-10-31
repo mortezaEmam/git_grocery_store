@@ -38,7 +38,7 @@ class ViewServiceMasterProvider extends ServiceProvider
         view::composer('layouts.master', function ($view) {
             $view->with('baskets', Basket::getAllSessionCart());
         });
-        view::composer('layouts.master', function ($view) {
+        view::composer(['layouts.master','cart.cart-index'], function ($view) {
             $view->with('total', Basket::getTotalSessionCart());
         });
     }

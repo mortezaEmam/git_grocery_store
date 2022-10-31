@@ -7,15 +7,10 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-    public function __construct()
-    {
 
-    }
-
-    //
     public function index()
     {
-        if( Auth::user()->hasRole('admin'))
+        if( Auth::user()->hasRole('user-admin'))
         {
 
 
@@ -25,7 +20,7 @@ class AdminController extends Controller
         else{
 
 
-            return  redirect()->route('user.login');
+            return  view('account');
     }
 
     }

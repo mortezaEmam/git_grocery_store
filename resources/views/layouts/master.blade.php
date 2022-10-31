@@ -74,9 +74,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="mega-dropdown-menu">
                     <div class="w3ls_vegetables">
                         <ul class="dropdown-menu drp-mnu">
-                            <li><a href="login.html">
+                            <li><a href="{{route('user.login')}}">
                                     ورود</a></li>
-                            <li><a href="login.html">
+                            <li><a href="{{route('user.register')}}">
                                     ثبت نام</a></li>
                         </ul>
                     </div>
@@ -109,12 +109,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="logo_products">
     <div class="container">
         <div class="w3ls_logo_products_right">
-            <h1><a href="index.html"><span>Grocery</span> Store</a></h1>
+            <h1><a href="{{route('home.index')}}"><span>Grocery</span> Store</a></h1>
         </div>
         <div class="w3ls_logo_products_right1">
             <ul class="special_items">
                 <li><a href="events.html">رویدادها</a><i>/</i></li>
                 <li><a href="about.html">درباره ما</a><i>/</i></li>
+                <li><a href="{{route('admin')}}">ناحیه کاربری</a><i>/</i></li>
                 <li><a href="products.html">
                         بهترین تخفیف</a><i>/</i></li>
                 <li><a href="services.html">خدمات</a></li>
@@ -153,7 +154,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" id="basket-close" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" id="basket-close" data-dismiss="modal">بستن</button>
+                <a href="{{route('cart.index')}}" class="btn btn-default" id="basket-list" data-dismiss="modal"><span >ادامه خرید</span></a>
             </div>
         </div>
     </div>
@@ -184,12 +186,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="col-md-3 w3_footer_grid">
             <h3>اطلاعات</h3>
             <ul class="w3_footer_grid_list">
+                @auth()
+                    <li><a href="{{route('cart.index')}}">مشاهده سفارشات</a></li>
+                    <li><a href="{{route('admin')}}">پنل کاربری</a></li>
+                    <li><a href="products.html">بهترین تخفیف</a></li>
+                    <li><a href="services.html">خدمات</a></li>
+                    <li><a href="short-codes.html">
+                            کدهای کوتاه</a></li>
+                @else
+
                 <li><a href="events.html">رویدادها</a></li>
                 <li><a href="about.html">درباره ما</a></li>
                 <li><a href="products.html">بهترین تخفیف</a></li>
                 <li><a href="services.html">خدمات</a></li>
                 <li><a href="short-codes.html">
                         کدهای کوتاه</a></li>
+                @endif
             </ul>
         </div>
         <div class="col-md-3 w3_footer_grid">
@@ -320,6 +332,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 $('.my-cart-badge').text(result.product_number);
                 $('#my-cart-table').html("<span></span>");
                 if (result.product_number > 0) {
+                    $('#basket-list').show();
                     for (var i = 0; i < result.product_number; i++) {
                         var product_id = result.baskets_id[i];
                         var title = result.baskets_title[i];
@@ -334,28 +347,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             '<td class="text-center" style="width: 30px;"><img width="30px" height="30px" src="' + image + '"/></td>' +
                             '<td> نام کالا:' + title + '</td>' +
                             '<td title="Unit Price">قیمت:' + price + '&nbsp;&nbsp;تومان  </td>' +
-                            '<td title="Quantity">تعداد:<input onclick="update_product(' + product_id + ')" id="update-' + product_id + '" type="number" min="1" style="width: 70px;" class="my-product-quantity" value="' + quantity + '"/></td>' +
+                            '<td title="Quantity" >تعداد:<input  onclick="update_product(' + product_id + ')" id="update-' + product_id + '" type="number" min="1" style="width: 70px;height: auto" class="my-product-quantity" value="' + quantity + '"/></td>' +
                             '<td title="Total" class="my-product-total">' + total + '&nbsp;&nbsp;تومان</td>' +
                             '<td title="Remove from Cart" class="text-center" style="width: 30px;"><button type="button" class="btn btn-xs btn-danger my-product-remove" onclick="delete_product(' + product_id + ')">X</button></td>' +
                             '</tr>'
                         );
 
                     }
-
-                    $('#my-cart-table').append(result.product_number > 0 ?
-                        '<tr>' +
-                        '<td></td>' +
-                        '<td><strong>جمع سبد</strong></td>' +
-                        '<td></td>' +
-                        '<td></td>' +
-                        '<td><strong class="my-cart-grand-total">' + result.total_baskets + '&nbsp;&nbsp;تومان</strong></td>' +
-                        '<td></td>' +
-                        '</tr>'
-                        : '<div class="alert alert-danger my-cart-empty-message text-center" role="alert">سبد خرید شما خالی هست</div>'
-                    );
-
-
                 }
+                else
+                {
+                    $('#basket-list').hide();
+                }
+                $('#my-cart-table').append(result.product_number > 0 ?
+                    '<tr>' +
+                    '<td></td>' +
+                    '<td><strong>جمع سبد</strong></td>' +
+                    '<td></td>' +
+                    '<td></td>' +
+                    '<td><strong class="my-cart-grand-total">' + result.total_baskets + '&nbsp;&nbsp;تومان</strong></td>' +
+                    '<td></td>' +
+                    '</tr>'
+                    : '<div class="alert alert-danger my-cart-empty-message text-center" role="alert">سبد خرید شما خالی هست</div>'
+                );
 
             }
 
@@ -401,25 +415,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
     }
-
-    {{--$('#update-'+productId).click(){--}}
-    {{--      $.ajax({--}}
-    {{--          url: '/baskets/update/' + productId,--}}
-    {{--          type: 'post',--}}
-    {{--          data: {--}}
-    {{--              _token: "{{csrf_token()}}",--}}
-
-    {{--          },--}}
-    {{--          success: function (result) {--}}
-    {{--              showlist();--}}
-
-    {{--          }--}}
-    {{--      });--}}
-
-    {{--  }--}}
     $('#basket-close').click(function () {
         $('#my-cart-modal').css("display", "none");
     });
+    $('#basket-list').click(function (){
+
+        $('#my-cart-modal').css("display", "none");
+    })
 
 </script>
 @yield('scripts')
