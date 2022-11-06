@@ -112,14 +112,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <h1><a href="{{route('home.index')}}"><span>Grocery</span> Store</a></h1>
         </div>
         <div class="w3ls_logo_products_right1">
+            @auth()
             <ul class="special_items">
                 <li><a href="events.html">رویدادها</a><i>/</i></li>
                 <li><a href="about.html">درباره ما</a><i>/</i></li>
                 <li><a href="{{route('admin')}}">ناحیه کاربری</a><i>/</i></li>
                 <li><a href="products.html">
                         بهترین تخفیف</a><i>/</i></li>
-                <li><a href="services.html">خدمات</a></li>
+                <li><a href="services.html">خدمات</a><i>/</i></li>
+                <li><a href="{{route('logout')}}">خروج</a></li>
             </ul>
+            @else
+                <ul class="special_items">
+                    <li><a href="events.html">رویدادها</a><i>/</i></li>
+                    <li><a href="about.html">درباره ما</a><i>/</i></li>
+                    <li><a href="products.html">
+                            بهترین تخفیف</a><i>/</i></li>
+                    <li><a href="services.html">خدمات</a></li>
+                </ul>
+            @endauth
+
         </div>
         <div class="w3ls_logo_products_right1">
             <ul class="phone_email">

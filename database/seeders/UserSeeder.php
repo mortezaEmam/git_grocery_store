@@ -24,9 +24,12 @@ class UserSeeder extends Seeder
             'phone'=>'09154868372'
         ]);
         DB::table('roles')->insert([
-            'name'=>'user-admin',
-            'display_name'=>'user admin',
-            'description'=>'access full ',
+            'id' => 1,
+            'name' => 'super_admin',
+            'display_name' => 'سوپر ادمین',
+            'description' => 'سوپر ادمین کلی سیستم',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
         DB::table('role_user')->insert([
             'user_id'=>1,

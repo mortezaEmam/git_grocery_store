@@ -10,18 +10,24 @@ class AdminController extends Controller
 
     public function index()
     {
-        if( Auth::user()->hasRole('user-admin'))
-        {
-
-
+    if( Auth::check() )
+    {
+        if( Auth::user()->hasRole('super_admin')){
             return view('admin.admin');
-
         }
         else{
 
 
-            return  view('account');
-    }
+            return  redirect()->route('home.account');
+        }
+      }
+      else  {
+
+
+          return redirect()->route('user.login');
+
+        }
+
 
     }
 }

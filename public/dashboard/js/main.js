@@ -6,7 +6,11 @@ $(document).ready(function() {
         //$(".admin-menu  ul  li > ul.sub-admin").slideToggle();
     });
 });
-
+$(document).ready(function() {
+    $('.admin-menu > ul > li.role').click(function(){
+        $("ul.sub-role").slideToggle();
+    });
+});
 $(document).ready(function() {
     $('.admin-menu > ul > li.category').click(function(){
         $("ul.sub-category").slideToggle();

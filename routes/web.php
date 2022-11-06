@@ -11,6 +11,7 @@ use \App\Http\Controllers\OrderController;
 use \App\Http\Controllers\BasketController;
 use \App\Http\Controllers\CartController;
 use \App\Http\Controllers\TranscationController;
+use \App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +32,11 @@ use \App\Http\Controllers\TranscationController;
 //    return view('dashboard');
 //})->middleware(['auth'])->name('dashboard');
 Route::get('/logout',[LoginUserController::class,'destroy'])->name('logout');
-Route::get('/', [HomeController::class,'index'])->name('home.index');
+Route::prefix('/')->group(function (){
+    Route::get('', [HomeController::class,'index'])->name('home.index');
+    Route::get('/account', [HomeController::class,'account'])->name('home.account');
+});
+
 Route::prefix('user')->group(function (){
     Route::get('/register',[UserController::class,'create'])->name('user.register');
     Route::post('/register',[UserController::class,'store'])->name('user.register');
@@ -41,7 +46,14 @@ Route::prefix('user')->group(function (){
 Route::prefix('admin')->middleware(['auth'])->group(function (){
     Route::get('/',[AdminController::class,'index'])->name('admin.index');
 });
-
+Route::prefix('roles')->group(function () {
+    Route::get('/', [RoleController::class, 'index'])->name('role.index');
+    Route::get('/create', [RoleController::class, 'create'])->name('role.create');
+    Route::post('/store', [RoleController::class, 'store'])->name('role.store');
+    Route::post('{role}/update', [RoleController::class, 'update'])->name('role.update');
+    Route::get('/edit/{role}', [RoleController::class, 'edit'])->name('role.edit');
+    Route::get('/destroy/{role}', [RoleController::class, 'destroy'])->name('role.destroy');
+});
 
 
 
