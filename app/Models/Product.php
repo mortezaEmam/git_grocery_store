@@ -33,6 +33,7 @@ class Product extends Model
 
         if(filled($find_image))
         {
+//            dd(Storage::url($find_image->url.$find_image->name));
             $image_url=Storage::url($find_image->url.$find_image->name);
 
         }

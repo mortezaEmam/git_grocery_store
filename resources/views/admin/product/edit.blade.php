@@ -19,10 +19,53 @@
                                 <textarea class="form-control" name="description"  rows="12">{{old('description',$product->title)}}"</textarea>
 
                                 <br>
+                                <hr>
+                                @if(filled($descriptions))
+
+                                    <h3 class="text-info">خصوصیات محصول شما</h3><br>
+
+                                    <table>
+                                        <thead class="table table-hover table-bordered tab-container">
+                                        <tr>
+                                            <th>عنوان</th>
+                                            <th>مقدار</th>
+                                            <th>عملیات</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        @foreach($descriptions as $item)
+
+                                            <tr id="description_id-{{$item->id}}" style="padding-bottom: 5px;">
+                                                <td>{{$item->title}}</td>
+                                                <td>{{$item->icon}}</td>
+
+                                                <td>
+
+                                                    <button type="button" onclick="delete_quantiy('{{$item->id}}')"  class="btn btn-danger btn-xs" >
+                                                        <svg class="bi bi-trash" width="1.2em" height="1.2em"
+                                                             viewBox="0 0 16 16" fill="currentColor"
+                                                             xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z"></path>
+                                                            <path fill-rule="evenodd"
+                                                                  d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                                                                  clip-rule="evenodd"></path>
+                                                        </svg>
+                                                    </button>
+
+                                                </td>
+
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                @endif
+                                <br>
 
                                 <input type="button" class="btn-primary btn" id="quantiy" value="افزودن خصوصیت">
 
                                 <hr>
+
                                 <br>
                                 <div id="box-quantity" class="box-widget" style="display: none">
                                     <h5>خصوصیات : </h5>
@@ -71,43 +114,7 @@
 
                         </div>
                     </form>
-                    <table>
-                        <thead class="table table-hover table-bordered">
-                        <tr>
-                            <th>ردیف</th>
-                            <th>عنوان</th>
-                            <th>مقدار</th>
-                            <th>عملیات</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($descriptions as $item)
 
-                            <tr>
-                                <td>{{$loop->iteration}}</td>
-                                <td>{{$item->title}}</td>
-                                <td>{{$item->icon}}</td>
-
-                                <td>
-                                    <form action="{{route('description.destroy',['description'=>$item->id])}}" method="post">
-                                        @csrf
-                                        <input type="hidden" name="product" value="{{$product->id}}">
-                                        <button type="submit"  class="btn btn-danger btn-xs" >
-                                            <svg class="bi bi-trash" width="1.2em" height="1.2em"
-                                                 viewBox="0 0 16 16" fill="currentColor"
-                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z"></path>
-                                                <path fill-rule="evenodd"
-                                                      d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
-                                                      clip-rule="evenodd"></path>
-                                            </svg>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
                 </div>
 
             </div>
@@ -121,6 +128,31 @@
             $("#quantiy").click(function (){
                 $("#box-quantity").css("display","block");
             });
+
         })
+        function delete_quantiy(quantiyId) {
+            console.log(quantiyId);
+            $.ajax({
+                url: '/product/delete_quantiy/' + quantiyId,
+                type: 'post',
+                data: {
+                    _token: "{{csrf_token()}}",
+
+                },
+                success: function (result) {
+                    if(result.sucsess)
+                    {
+
+                        $('#description_id-'+quantiyId).html("");
+
+                    }
+                    else {
+                        alert('no find item');
+                    }
+
+                }
+            });
+
+        }
     </script>
 @endsection

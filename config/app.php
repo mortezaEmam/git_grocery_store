@@ -154,7 +154,7 @@ return [
     |
     */
 
-    'providers' => array(
+    'providers' => [
 
         /*
          * Laravel Framework Service Providers...
@@ -194,10 +194,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\ViewServiceMasterProvider::class,
-//        Barryvdh\Debugbar\ServiceProvider::class,
+        \App\Providers\ViewServiceMasterProvider::class,
 
-    ),
+
+    ],
 
     /*
     |--------------------------------------------------------------------------

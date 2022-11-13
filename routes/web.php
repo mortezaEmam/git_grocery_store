@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\HomeController;
 use \App\Http\Controllers\UserController;
-use \App\Http\Controllers\LoginUserController;
 use \App\Http\Controllers\AdminController;
 use \App\Http\Controllers\CategoryController;
 use \App\Http\Controllers\ProductController;
@@ -12,7 +11,7 @@ use \App\Http\Controllers\BasketController;
 use \App\Http\Controllers\CartController;
 use \App\Http\Controllers\TranscationController;
 use \App\Http\Controllers\RoleController;
-
+use \App\Http\Controllers\Auth\AuthenticatedSessionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,22 +29,12 @@ use \App\Http\Controllers\RoleController;
 //
 //Route::get('/dashboard', function () {
 //    return view('dashboard');
-//})->middleware(['auth'])->name('dashboard');
-Route::get('/logout',[LoginUserController::class,'destroy'])->name('logout');
-Route::prefix('/')->group(function (){
-    Route::get('', [HomeController::class,'index'])->name('home.index');
-    Route::get('/account', [HomeController::class,'account'])->name('home.account');
-});
+//})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::prefix('user')->group(function (){
-    Route::get('/register',[UserController::class,'create'])->name('user.register');
-    Route::post('/register',[UserController::class,'store'])->name('user.register');
-    Route::get('/login',[LoginUserController::class,'create'])->name('user.login');
-    Route::post('/login',[LoginUserController::class,'store'])->name('user.login');
-});
-Route::prefix('admin')->middleware(['auth'])->group(function (){
-    Route::get('/',[AdminController::class,'index'])->name('admin.index');
-});
+require __DIR__.'/auth.php';
+Route::get('/logout',[AuthenticatedSessionController::class,'destroy'])->name('logout');
+
+Route::get('/',[HomeController::class,'index'])->name('home.index');
 Route::prefix('roles')->group(function () {
     Route::get('/', [RoleController::class, 'index'])->name('role.index');
     Route::get('/create', [RoleController::class, 'create'])->name('role.create');
@@ -57,14 +46,8 @@ Route::prefix('roles')->group(function () {
 
 
 
+Route::get('/admin', [AdminController::class,'index'])->name('admin');
 
-
-Route::prefix('admin')->group(function (){
-
-    Route::get('/', [AdminController::class,'index'])->name('admin');
-
-
-});
 Route::prefix('category')->group(function (){
     Route::get('/',[CategoryController::class,'index'])->name('category.index');
     Route::get('/create',[CategoryController::class,'create'])->name('category.create');
@@ -82,6 +65,7 @@ Route::prefix('product')->group(function (){
     Route::get('{product}/edit',[ProductController::class,'edit'])->name('product.edit');
     Route::post('{product}/update',[ProductController::class,'update'])->name('product.update');
     Route::get('{product}/destroy',[ProductController::class,'destroy'])->name('product.destroy');
+    Route::post('/delete_quantiy/{product}',[ProductController::class,'setDestoryDescriptionId'])->name('product.delete_quantiy');
 });
 Route::prefix('transcations')->group(function (){
     Route::get('/',[TranscationController::class,'index'])->name('transcation.index');
@@ -119,3 +103,4 @@ Route::prefix('baskets')->group(function (){
     Route::post('/update/{basket}',[BasketController::class,'update'])->name('basket.update');
     Route::post('/destroy/{basket}',[BasketController::class,'destroy'])->name('basket.destroy');
 });
+

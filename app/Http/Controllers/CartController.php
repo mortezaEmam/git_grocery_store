@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CartCreate;
 use App\Models\Basket;
 use App\Models\Cart;
 use Illuminate\Http\Request;
@@ -16,33 +17,16 @@ class CartController extends Controller
      */
     public function index()
     {
-        $baskets = Basket::getAllSessionCart();
 
-        foreach ($baskets as $basket) {
-        Cart::query()->create([
-            'user_id'=>Auth::id(),
-            'product_id' => $basket['id'],
-            'title' => $basket['title'],
-            'quantity' => $basket['quantity'],
-            'price' => $basket['price'],
-            'total' => $basket['total'],
-            'image' => $basket['image'],
-            'created_at' => $basket['created_at'],
-            'updated_at' => $basket['updated_at'],
-        ]);
+        CartCreate::dispatch();
+        $data = [
 
-        session()->forget('cart-product-'.$basket['id']);
-        }
-$data=[
-
-    'carts'=>Cart::query()->where('user_id',Auth::id())->get(),
-        'sum_cart'=>Cart::getSumTotalPrices(),
-    'number_product'=>Cart::getSumNumberProduct(),
-    'cart_id'=>implode(',',Cart::getIdCartProducts()),
-];
-
-
-        return view('cart.cart-index',$data);
+            'carts' => Cart::query()->where('user_id', Auth::id())->get(),
+            'sum_cart' => Cart::getSumTotalPrices(),
+            'number_product' => Cart::getSumNumberProduct(),
+            'cart_id' => implode(',', Cart::getIdCartProducts()),
+        ];
+        return view('cart.cart-index', $data);
     }
 
     /**

@@ -11,10 +11,13 @@ class Cart extends Model
 {
     use HasFactory,SoftDeletes;
     protected $guarded=[];
+
     public static function getSumTotalPrices()
     {
         $total=0;
-        $carts=Cart::query()->where('status','unpaid')->where('user_id',Auth::id())->get();
+        $carts=Cart::query()->where('status','unpaid')
+            ->where('user_id',Auth::id())->get();
+
         foreach ($carts as $cart)
         {
             $total_new=$cart->product->price*$cart->quantity;
@@ -26,7 +29,8 @@ class Cart extends Model
     public static function getSumNumberProduct()
     {
         $number=0;
-        $carts=Cart::query()->where('status','unpaid')->where('user_id',Auth::id())->get();
+        $carts=Cart::query()->where('status','unpaid')
+            ->where('user_id',Auth::id())->get();
         foreach ($carts as $cart)
         {
             $number+=$cart->quantity;

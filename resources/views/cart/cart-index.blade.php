@@ -26,11 +26,14 @@
                     <td>{{number_format($cart->quantity*$cart->product->price)}}&nbsp;&nbsp;تومان</td>
 
                 @endif
-                <td>@if($cart->status=='paid') <span class="alert-success">پرداخت شده</span> @else<span class="alert-danger">پرداخت نشده</span>&nbsp;&nbsp;
+                <td>@if($cart->status=='paid') <span class="alert-success">پرداخت شده</span>
+                    @else<span class="alert-danger">پرداخت نشده</span>&nbsp;&nbsp;
                     <form action="{{route('transcation.create')}}" method="post">
                         @csrf
 
                         <input type="hidden" name="cart_id[]" value="{{$cart->id}}">
+                        <input type="hidden" name="quantity" value="{{$cart->quantity}}">
+                        <input type="hidden" name="sum_price" value="{{$cart->quantity*$cart->product->price}}">
                         <input  class="btn btn-primary" type="submit" value="پرداخت تکی سفارش"/>
                     </form> @endif </td>
             </tr>
@@ -38,7 +41,7 @@
             </tbody>
 
             <tfoot class="border-info">
-
+            @if($number_product>0)
             <tr style="border-top: solid 2px blue;">
                 <td  style="color: red;font-weight: 900">مبلغ قابل پرداخت</td>
                 <td></td>
@@ -47,9 +50,18 @@
                 <td></td>
                 <td style="color: red">{{number_format($sum_cart)}}&nbsp;&nbsp;تومان</td>
             </tr>
+            @else
+                <tr style="border-top: solid 2px blue;">
+                    <td></td>
+
+                    <td  style="color: green;font-weight: 900;font-family: Tahoma;" colspan="3">فاکتور پرداخت نشده ندارید</td>
+
+                    <td></td>
+                </tr>
+            @endif
             </tfoot>
         </table>
-
+        @if($number_product>0)
         <div class="container" style="padding: 5px;">
         <form action="{{route('transcation.create')}}" method="post">
             @csrf
@@ -58,5 +70,6 @@
             <input  class="btn btn-primary" type="submit" value="پرداخت یکجای تمامی سفارشات"/>
         </form>
         </div>
+        @endif
     </div>
 @endsection

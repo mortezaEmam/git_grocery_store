@@ -8,6 +8,7 @@ use App\Models\File;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use mysql_xdevapi\Exception;
 
 class ProductController extends Controller
 {
@@ -65,7 +66,7 @@ class ProductController extends Controller
         ]);
         if($request->hasFile('thumbnail'))
         {
-            $path='public/product/';
+            $path="public/product/";
             $pic=$request->file('thumbnail');
             $file=File::uploadfile($pic,$path);
             $product->file()->save($file);
@@ -160,15 +161,17 @@ class ProductController extends Controller
 
 
         if ($request->hasFile('thumbnail')) {
-            $file=$product->file;
-
-            Storage::delete($file->url.$file->name);
-            $product->file()->delete();
+            $file_old=$product->file;
+            if(filled($file_old))
+            {
+                Storage::delete($file_old->url.$file_old->name);
+                $product->file()->delete();
+            }
 
             $path = 'public/product/';
             $pic = $request->file('thumbnail');
-            $file = File::uploadfile($pic, $path);
-            $product->file()->save($file);
+            $file_new = File::uploadfile($pic, $path);
+            $product->file()->save($file_new);
 
 
         }
@@ -212,12 +215,21 @@ class ProductController extends Controller
         Product::query()->find($product->id)->delete();
         return redirect()->route('product.index');
     }
-    public function getDestoryDescriptionId(Request $request, Description $description)
+    public function setDestoryDescriptionId($description)
     {
+        try {
+            Description::query()->where('id',$description)->delete();
 
-        $description->delete();
+            return response()->json([
+                'sucsess'=>true,
+            ]);
+        }
+        catch (Exception){
+            return response()->json([
+                'sucsess'=>false,]);
+        }
 
-        return redirect()->route('product.edit',['product'=>$request->product]);
+
 
 
 

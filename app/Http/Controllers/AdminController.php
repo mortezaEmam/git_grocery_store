@@ -12,14 +12,10 @@ class AdminController extends Controller
     {
     if( Auth::check() )
     {
-        if( Auth::user()->hasRole('super_admin')){
+
             return view('admin.admin');
-        }
-        else{
 
 
-            return  redirect()->route('home.account');
-        }
       }
       else  {
 

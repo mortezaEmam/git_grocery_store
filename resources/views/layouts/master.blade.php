@@ -41,6 +41,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             });
         });
     </script>
+    @yield('styles')
     <!-- start-smoth-scrolling -->
 </head>
 
@@ -74,9 +75,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="mega-dropdown-menu">
                     <div class="w3ls_vegetables">
                         <ul class="dropdown-menu drp-mnu">
-                            <li><a href="{{route('user.login')}}">
+                            <li><a href="{{route('login')}}">
                                     ورود</a></li>
-                            <li><a href="{{route('user.register')}}">
+                            <li><a href="{{route('register')}}">
                                     ثبت نام</a></li>
                         </ul>
                     </div>
@@ -116,7 +117,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <ul class="special_items">
                 <li><a href="events.html">رویدادها</a><i>/</i></li>
                 <li><a href="about.html">درباره ما</a><i>/</i></li>
-                <li><a href="{{route('admin')}}">ناحیه کاربری</a><i>/</i></li>
+                <li><a href="{{route('admin')}}">ناحیه کاربری</a><i></i></li>
                 <li><a href="products.html">
                         بهترین تخفیف</a><i>/</i></li>
                 <li><a href="services.html">خدمات</a><i>/</i></li>

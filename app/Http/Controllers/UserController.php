@@ -55,7 +55,7 @@ class UserController extends Controller
             'phone' => $request->Phone,
             'password' => Hash::make($request->Password),
         ]);
-        $user->roles()->attach([2=>['user_type'=>'User']]);
+        $user->roles()->attach([2=>['user_type'=>User::class]]);
         event(new Registered($user));
         Auth::login($user);
 

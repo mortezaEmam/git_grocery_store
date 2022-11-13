@@ -26,48 +26,63 @@ class TranscationController extends Controller
      */
     public function create(Request $request)
     {
-        $data=[
-            'sum_cart'=>Cart::getSumTotalPrices(),
-            'number_product'=>Cart::getSumNumberProduct(),
-            'cart_id'=>$request->cart_id
-        ];
-      return view('transcation.transcation-create',$data);
+
+        $cart_id = str_replace(',', '', $request->cart_id);
+        $string_cart_id = implode('', $cart_id);
+        if (strlen($string_cart_id) > 1)
+        {
+            $data = [
+                'sum_cart' => Cart::getSumTotalPrices(),
+                'number_product' => Cart::getSumNumberProduct(),
+                'cart_id' => $request->cart_id
+            ];
+
+        }
+        else
+            {
+            $data = [
+                'sum_cart' => $request->sum_price,
+                'number_product' => $request->quantity,
+                'cart_id' => $request->cart_id
+            ];
+
+        }
+        return view('transcation.transcation-create', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
 
-        $transcation=Transcation::query()->create([
-            'user_id'=>$request->user_id,
-            'number_product'=>$request->number_product,
-            'total_price'=>$request->sum_total_product,
-            'address'=>$request->address,
-            'phone'=>$request->phone,
-            'description'=>$request->description,
-            'code_payment'=>time(),
+        $transcation = Transcation::query()->create([
+            'user_id' => $request->user_id,
+            'number_product' => $request->number_product,
+            'total_price' => $request->sum_total_product,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'description' => $request->description,
+            'code_payment' => time(),
         ]);
-        $code_payment=$transcation->code_payment;
-$cart_id=str_replace(',','',$request->cart_id);
-$string_cart_id=implode('',$cart_id);
-for ($i=0;$i<strlen($string_cart_id);$i++)
-{
-    Transcation::setStatusCartSuccess($string_cart_id[$i]);
+        $code_payment = $transcation->code_payment;
+        $cart_id = str_replace(',', '', $request->cart_id);
+        $string_cart_id = implode('', $cart_id);
+        for ($i = 0; $i < strlen($string_cart_id); $i++) {
+            Transcation::setStatusCartSuccess($string_cart_id[$i]);
 
-}
+        }
 
-        return view('transcation.transcation-index',compact('code_payment'));
+        return view('transcation.transcation-index', compact('code_payment'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Transcation  $transcation
+     * @param \App\Models\Transcation $transcation
      * @return \Illuminate\Http\Response
      */
     public function show(Transcation $transcation)
@@ -78,7 +93,7 @@ for ($i=0;$i<strlen($string_cart_id);$i++)
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Transcation  $transcation
+     * @param \App\Models\Transcation $transcation
      * @return \Illuminate\Http\Response
      */
     public function edit(Transcation $transcation)
@@ -89,8 +104,8 @@ for ($i=0;$i<strlen($string_cart_id);$i++)
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Transcation  $transcation
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Transcation $transcation
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Transcation $transcation)
@@ -101,7 +116,7 @@ for ($i=0;$i<strlen($string_cart_id);$i++)
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Transcation  $transcation
+     * @param \App\Models\Transcation $transcation
      * @return \Illuminate\Http\Response
      */
     public function destroy(Transcation $transcation)

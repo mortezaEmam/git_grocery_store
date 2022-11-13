@@ -18,7 +18,7 @@
             پیشخوان
         </a>
     </li>
-
+    @if( auth()->user()->hasRole('super_admin')){
     <li class="role">
         <a href="javascript:;">
             <svg class="bi bi-book-half-fill" width="1em" height="1em" viewBox="0 0 20 20"
@@ -98,6 +98,7 @@
         <li><a href="{{route('product.index')}}">همه محصولات</a></li>
         <li><a href="{{route('product.create')}}">افزودن محصول جدید</a></li>
     </ul>
+    @endif
     <li class="transcation">
         <a href="javascript:;">
             <svg class="bi bi-book-half-fill" width="1em" height="1em" viewBox="0 0 20 20"
