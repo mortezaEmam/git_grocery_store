@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('post_details', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->unsignedBigInteger('parent_id')->nullable()->default(null);
-            $table->integer('sort')->default(0);
-            $table->enum('status', ['on', 'off'])->default('off');
+            $table->unsignedBigInteger('post_id');
+            $table->unsignedBigInteger('reciver_id');
+            $table->unsignedBigInteger('warehouse_id');
+            $table->string('sender_phone');
+            $table->string('reciver_address');
+            $table->string('reciver_phone');
+            $table->string('qty');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('post_details');
     }
 };

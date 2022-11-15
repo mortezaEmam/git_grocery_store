@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('url');
             $table->morphs('fileable');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

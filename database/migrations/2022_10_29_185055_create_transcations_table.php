@@ -16,12 +16,14 @@ return new class extends Migration
         Schema::create('transcations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->text('code_payment')->unique();
-            $table->integer('number_product');
+            $table->unsignedBigInteger('order_id');
+            $table->enum('gateway',['zarinpall','shaparak']);
+            $table->integer('qyt');
+            $table->decimal('amount');
             $table->string('address');
             $table->string('phone');
-            $table->string('total_price');
             $table->text('description');
+            $table->integer('code_payment')->default(null)->unique();
             $table->timestamps();
             $table->softDeletes();
         });

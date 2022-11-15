@@ -16,13 +16,9 @@ return new class extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('product_id');
-            $table->string('title');
-            $table->integer('quantity');
-            $table->double('price');
+            $table->integer('qty');
             $table->double('total');
-            $table->string('image');
-            $table->enum('status',['paid','unpaid','pending'])->default('unpaid');
+            $table->enum('status',['pass','block'])->default('block');
             $table->timestamps();
             $table->softDeletes();
         });

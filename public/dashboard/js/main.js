@@ -16,6 +16,16 @@ $(document).ready(function() {
         $("ul.sub-category").slideToggle();
     });
 });
+$(document).ready(function() {
+    $('.admin-menu > ul > li.transcation').click(function(){
+        $("ul.sub-transcation").slideToggle();
+    });
+});
+$(document).ready(function() {
+    $('.admin-menu > ul > li.factors').click(function(){
+        $("ul.sub-factor").slideToggle();
+    });
+});
 $('.owl-carousel').owlCarousel({
     loop:true,
     margin:10,

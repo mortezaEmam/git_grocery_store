@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -11,7 +12,7 @@ use Laratrust\Traits\LaratrustUserTrait;
 
 class User extends Authenticatable
 {
-    use LaratrustUserTrait;
+    use LaratrustUserTrait,SoftDeletes;
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -54,6 +55,6 @@ class User extends Authenticatable
     }
     public function cart()
     {
-        return $this->belongsTo(Cart::class);
+        return $this->hasOne(Cart::class,'user_id');
     }
 }

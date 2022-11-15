@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('discounts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->unsignedBigInteger('parent_id')->nullable()->default(null);
-            $table->integer('sort')->default(0);
-            $table->enum('status', ['on', 'off'])->default('off');
+            $table->enum('type',['tax','real']);
+            $table->decimal('amount');
+            $table->unsignedBigInteger('product_id')->default(null);
+            $table->enum('status',['off','on'])->default('off');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('discounts');
     }
 };

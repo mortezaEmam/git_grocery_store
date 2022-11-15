@@ -9,6 +9,7 @@ use App\Models\Cart;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
 class StoreCart
@@ -31,23 +32,13 @@ class StoreCart
      */
     public function handle(CartCreate $event)
     {
-        $baskets = Basket::getAllSessionCart();
+   $cart=new Cart();
+   $cart->user_id=$event->user;
+   $cart->qty=Basket::getNumberSessionCartProduct();
+   $cart->total=Basket::getTotalSessionCart();
+   $cart->status='block';
+   $cart->save();
 
-        foreach ($baskets as $basket) {
-            Cart::query()->create([
-                'user_id' => Auth::id(),
-                'product_id' => $basket['id'],
-                'title' => $basket['title'],
-                'quantity' => $basket['quantity'],
-                'price' => $basket['price'],
-                'total' => $basket['total'],
-                'image' => $basket['image'],
-                'created_at' => $basket['created_at'],
-                'updated_at' => $basket['updated_at'],
-            ]);
 
-            session()->forget('cart-product-' . $basket['id']);
-        }
-        Log::info('insert carte and delete session');
     }
 }

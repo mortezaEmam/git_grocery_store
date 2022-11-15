@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('dislike')->unsigned()->default(0);
             $table->enum('status',['on','off'])->default('off');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

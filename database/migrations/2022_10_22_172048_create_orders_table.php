@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->unsignedBigInteger('quantity')->default(0);
+            $table->unsignedBigInteger('qty')->default(0);
             $table->double('total_amount');
             $table->text('description')->nullable();
             $table->enum('is_confirm',['unpaid','paid','pending']);

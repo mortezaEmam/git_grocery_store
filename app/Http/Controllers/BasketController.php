@@ -6,6 +6,7 @@ use App\Models\Basket;
 use App\Models\Product;
 use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use mysql_xdevapi\Session;
 
 class BasketController extends Controller
@@ -72,8 +73,8 @@ class BasketController extends Controller
     public function store($productId)
     {
         $product = Product::query()->where('id', $productId)->first();
-        if (session()->has('cart-product-' . $product->id) == false) {
-
+        if (session()->has('cart-product-' . $product->id) == false)
+        {
             $cart_new = [
                 'id' => $product->id,
                 'title' => $product->title,

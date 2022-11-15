@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('ware_house_detailes', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->unsignedBigInteger('parent_id')->nullable()->default(null);
-            $table->integer('sort')->default(0);
-            $table->enum('status', ['on', 'off'])->default('off');
+            $table->unsignedBigInteger('warehouse_id');
+            $table->unsignedBigInteger('product_id');
+            $table->enum('vahed',['عدد','کیلوگرم','مثقال','گرم','کارتن']);
+            $table->string('stock');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('ware_house_detailes');
     }
 };
