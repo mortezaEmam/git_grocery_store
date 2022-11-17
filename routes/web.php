@@ -11,6 +11,7 @@ use \App\Http\Controllers\BasketController;
 use \App\Http\Controllers\CartController;
 use \App\Http\Controllers\TranscationController;
 use \App\Http\Controllers\RoleController;
+use App\Http\Controllers\WareHousController;
 use \App\Http\Controllers\Auth\AuthenticatedSessionController;
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +48,15 @@ Route::prefix('roles')->group(function () {
 
 
 Route::get('/admin', [AdminController::class,'index'])->name('admin');
-
+Route::prefix('warehouse')->group(function (){
+    Route::get('/',[WareHousController::class,'index'])->name('warehouse.index');
+    Route::get('/create',[WareHousController::class,'create'])->name('warehouse.create');
+    Route::post('/store',[WareHousController::class,'store'])->name('warehouse.store');
+    Route::get('{warehouse}/edit',[WareHousController::class,'edit'])->name('warehouse.edit');
+    Route::get('{warehouse}/show',[WareHousController::class,'show'])->name('category.show');
+    Route::post('{warehouse}/update',[WareHousController::class,'update'])->name('warehouse.update');
+    Route::get('{warehouse}/destroy',[WareHousController::class,'destroy'])->name('warehouse.destroy');
+});
 Route::prefix('category')->group(function (){
     Route::get('/',[CategoryController::class,'index'])->name('category.index');
     Route::get('/create',[CategoryController::class,'create'])->name('category.create');

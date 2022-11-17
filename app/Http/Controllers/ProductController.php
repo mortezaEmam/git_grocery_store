@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\WareHouseCreate;
 use App\Models\Category;
 use App\Models\Description;
 use App\Models\File;
 use App\Models\Product;
+use App\Models\ProductCountingUnit;
+use App\Models\WareHouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use mysql_xdevapi\Exception;
@@ -35,7 +38,14 @@ class ProductController extends Controller
     {
 
         $categories=Category::query()->where('status','on')->get();
-        return view('Admin.product.create',compact('categories'));
+        $product_counting_units=ProductCountingUnit::all();
+        $warehouses=WareHouse::all();
+        $data=[
+            'categories'=>$categories,
+            'product_counting_units'=>$product_counting_units,
+            'warehouses'=>$warehouses,
+        ];
+        return view('Admin.product.create',$data);
 
     }
 
@@ -46,8 +56,10 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-
+    { if($request->warhouse_panel=='on'){
+        WareHouseCreate::dispatch($request);
+    }
+    dd('done');
         if($request->has('status')=='')
         {
             $status='off';
@@ -95,9 +107,6 @@ class ProductController extends Controller
                 ]);
                 $product->descriptions()->save($description);
             }
-
-
-
         }
 
 

@@ -1,0 +1,89 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\WareHouse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class WareHousController extends Controller
+{
+    public function index()
+    {
+        $warehouses = WareHouse::all();
+        return view('admin.warehouse.warehouse-index', compact('warehouses'));
+    }
+
+    public function create()
+    {
+        $user = Auth::user();
+        return view('admin.warehouse.warehouse-create', compact('user'));
+    }
+
+    public function store(Request $request)
+    {
+        $warehouse = new WareHouse();
+        if (filled($request->status)) {
+            $status = $request->status;
+        } else {
+            $status = 'off';
+        }
+
+        $warehouse->origin_id = Auth::id();
+        $warehouse->address = $request->address;
+        $warehouse->phone = $request->phone;
+
+        $warehouse->status = $status;
+        $warehouse->save();
+        return redirect()->route('warehouse.index');
+    }
+
+    public function show($id)
+    {
+        //
+    }
+
+    public function edit(WareHouse $warehouse)
+    {
+        return view('admin.warehouse.warehouse-edit', compact('warehouse'));
+    }
+
+    public function update(Request $request, WareHouse $warehouse)
+    {
+        if (filled($request->status)) {
+            $status = $request->status;
+        } else {
+            $status = 'off';
+        }
+        WareHouse::query()->find($warehouse->id)->update([
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'status' => $status,
+        ]);
+
+        return redirect()->route('warehouse.index');
+    }
+
+    public function destroy(WareHouse $warehouse)
+    {
+        $user = Auth::user();
+        if (filled($user->warehouse))
+            {
+                if (filled($warehouse->getWarehouseDetaile))
+                    {
+                        abort(403, 'انبار دارای موجودی کالا می باشد ابتدا انبار خود را خالی کنید سپس حذف کنید');
+
+                    }
+                else
+                    {
+                    WareHouse::query()->find($warehouse->id)->delete();
+                    }
+
+            }
+        else
+            {
+            abort(403, 'no access for action');
+             }
+     return redirect()->back();
+    }
+}

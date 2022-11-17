@@ -57,4 +57,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(Cart::class,'user_id');
     }
+    public function warehouse()
+    {
+        return $this->hasOne(WareHouse::class,'origin_id');
+    }
 }

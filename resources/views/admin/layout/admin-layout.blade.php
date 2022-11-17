@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>@yield('title','پنل کاربری ')</title>
 
 
     <link rel="stylesheet" href="{{asset('dashboard/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{ asset('dashboard/css/style.css') }}">
+    @yield('dashboard-styles')
 </head>
 <body>
 <div class="topmenu">
@@ -44,6 +45,6 @@
 <script src="{{ asset('dashboard/js/jquery-1.11.3.min.js') }}"></script>
 <script src="{{ asset('dashboard/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('dashboard/js/main.js') }}"></script>
-
+@yield('dashboard-scripts')
 </body>
 </html>

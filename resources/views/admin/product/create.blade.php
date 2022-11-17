@@ -1,7 +1,7 @@
 @extends('admin.layout.admin-layout')
 
 @section('content')
-    <div class="content-panel">
+    <div class="content-panel" xmlns="http://www.w3.org/1999/html">
         <div class="container-fluid" style="padding: 0">
             <div class="row">
 
@@ -9,6 +9,8 @@
                     <p class="title-form">افزودن محصول جدید</p>
                     <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
                        @csrf
+                        <label for="warehouse-panel">آیا مایل به ذخیره کالا در انبار هستید؟</label>
+                        <input type="checkbox" name="warhouse_panel" id="warehouse-panel" onclick="AddProductWarehous()">
                         <div class="row">
                             <div class="col-md-9">
                                 <input class="form-control inputbig" type="text" name="name" placeholder="عنوان را اینجا وارد کنید">
@@ -32,8 +34,34 @@
                                     </div>
 
                                 </div>
-                            </div>
+                                <br>
+                                <hr>
+                                <div id="warehouse" class="container" style="background-color: #3c763d;padding: 3%;border-radius: 5px;display: none;">
+                                    <h3>اظلاعات انبار</h3>
+                                    <br><hr>
+                                    <label>انبار:</label>
+                                    <select class="form-control col-md-8" name="warehouse_id" required>
+                                        <option selected>--انتخاب انبار--</option>
+                                        @foreach($warehouses as $warehouse)
+                                        <option value="{{$warehouse->id}}">{{$warehouse->address}}</option>
+                                        @endforeach
+                                    </select>
+                                    <hr>
+                                    <label>واحد شمارش کالا:</label>
+                                    <select class="form-control col-md-8"  name="vahed" required>
+                                        <option selected>--انتخاب واحد شمارش--</option>
+                                        @foreach($product_counting_units as $product_counting_unit)
+                                        <option value="{{$product_counting_unit->id}}">{{$product_counting_unit->title}}</option>
+                                        @endforeach
+                                    </select>
+                                    <hr>
+                                    <label>موجودی فعلی کالا:</label>
+                                    <input class="form-control col-md-8"  type="number" name="stock" min="1">
 
+                                </div>
+
+                                <br>
+                            </div>
                             <div class="col-md-3">
 
                                 <div class="box-widget">
@@ -58,7 +86,6 @@
 
 
                                 </div>
-
                                 <div class="box-widget">
                                     <h5>تصویر شاخص</h5>
                                     <input type="file" name="thumbnail" accept="image/*">
@@ -73,7 +100,9 @@
             </div>
         </div>
     </div>
-    <script src="{{asset('dashboard/js/jquery-1.11.3.min.js')}}"></script>
+@endsection
+
+@section('dashboard-scripts')
     <script>
 
         $(document).ready(function (){
@@ -81,6 +110,12 @@
             $("#quantiy").click(function (){
                 $("#box-quantity").css("display","block");
             });
+
         })
-        </script>
+    </script>
+    <script>
+        function AddProductWarehous(){
+            $('#warehouse').css("display","block");
+        }
+    </script>
 @endsection

@@ -12,6 +12,11 @@ $(document).ready(function() {
     });
 });
 $(document).ready(function() {
+    $('.admin-menu > ul > li.warehouse').click(function(){
+        $("ul.sub-warehouse").slideToggle();
+    });
+});
+$(document).ready(function() {
     $('.admin-menu > ul > li.category').click(function(){
         $("ul.sub-category").slideToggle();
     });
