@@ -28,6 +28,10 @@ class Product extends Model
     {
         return $this->belongsTo(Cart::class);
     }
+    public function warehousedetaile()
+    {
+        return $this->hasMany(WareHouseDetaile::class,'product_id');
+    }
     public static function getImageUrl($product)
     {
         $find_image=$product->file;

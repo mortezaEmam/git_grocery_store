@@ -13,7 +13,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Http\Request;
 use Illuminate\Queue\SerializesModels;
 
-class WareHouseCreate
+class UpdateWareHouseDetaile
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $user;

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('warehouse_id');
             $table->unsignedBigInteger('product_id');
-            $table->enum('vahed',['عدد','کیلوگرم','مثقال','گرم','کارتن']);
+            $table->unsignedBigInteger('product_counting_unit_id');
             $table->string('stock');
             $table->timestamps();
             $table->softDeletes();

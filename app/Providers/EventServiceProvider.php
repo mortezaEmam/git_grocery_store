@@ -4,10 +4,12 @@ namespace App\Providers;
 
 use App\Events\CartCreate;
 use App\Events\CartDetail;
+use App\Events\UpdateWareHouseDetaile;
 use App\Events\WareHouseCreate;
 use App\Listeners\CreateCartDetaile;
 use App\Listeners\StoreCart;
 use App\Listeners\StoreWareHouse;
+use App\Listeners\UpdateOrCreateWarehouseDetaile;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -33,6 +35,11 @@ class EventServiceProvider extends ServiceProvider
         WareHouseCreate::class=>[
             StoreWareHouse::class,
         ],
+        UpdateWareHouseDetaile::class=>[
+            UpdateOrCreateWarehouseDetaile::class,
+        ],
+
+
     ];
 
     /**

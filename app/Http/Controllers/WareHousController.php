@@ -67,7 +67,8 @@ class WareHousController extends Controller
     public function destroy(WareHouse $warehouse)
     {
         $user = Auth::user();
-        if (filled($user->warehouse))
+        $warehouse_find=WareHouse::query()->where('id',$warehouse->id)->where('origin_id',$user->id)->get();
+        if (filled($warehouse_find))
             {
                 if (filled($warehouse->getWarehouseDetaile))
                     {

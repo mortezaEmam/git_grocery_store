@@ -1,5 +1,5 @@
 @extends('admin.layout.admin-layout')
-
+@section('title','افزودن محصول جدید')
 @section('content')
     <div class="content-panel" xmlns="http://www.w3.org/1999/html">
         <div class="container-fluid" style="padding: 0">
@@ -55,7 +55,7 @@
                                         @endforeach
                                     </select>
                                     <hr>
-                                    <label>موجودی فعلی کالا:</label>
+                                    <label>موجودی کالا:</label>
                                     <input class="form-control col-md-8"  type="number" name="stock" min="1">
 
                                 </div>
