@@ -16,14 +16,16 @@ class HomeController extends Controller
 
 
         return view('index');
-}
-public function account()
-{
-    return view('account');
-}
-public function store(Request $request)
-{
-    dd($request->all());
+    }
+
+    public function account()
+    {
+        return view('account');
+    }
+
+    public function store(Request $request)
+    {
+        dd($request->all());
 //    // convert latin to persian
 //        $date = \Morilog\Jalali\CalendarUtils::strftime('Y-m-d', strtotime('2016-05-8')); // 1395-02-19
 //        \Morilog\Jalali\CalendarUtils::convertNumbers($date); // ۱۳۹۵-۰۲-۱۹
@@ -31,5 +33,5 @@ public function store(Request $request)
 // convert persian to latin
         $dateString = \Morilog\Jalali\CalendarUtils::convertNumbers('۱۳۹۵-۰۲-۱۹', true); // 1395-02-19
         \Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y-m-d', $dateString)->format('Y-m-d'); //2016-05-8
-}
+    }
 }

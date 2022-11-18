@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use App\Events\CartCreate;
 use App\Events\CartDetail;
+use App\Events\OrderDetaile;
 use App\Events\UpdateWareHouseDetaile;
 use App\Events\WareHouseCreate;
 use App\Listeners\CreateCartDetaile;
+use App\Listeners\CreateOrderDetaile;
 use App\Listeners\StoreCart;
 use App\Listeners\StoreWareHouse;
 use App\Listeners\UpdateOrCreateWarehouseDetaile;
@@ -37,6 +39,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         UpdateWareHouseDetaile::class=>[
             UpdateOrCreateWarehouseDetaile::class,
+        ],
+        OrderDetaile::class=>[
+            CreateOrderDetaile::class,
         ],
 
 

@@ -9,8 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Order extends Model
 {
     use HasFactory,SoftDeletes;
+    protected $guarded=[];
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 }

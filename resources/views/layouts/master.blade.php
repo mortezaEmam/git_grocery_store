@@ -168,7 +168,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" id="basket-close" data-dismiss="modal">بستن</button>
-                <a href="{{route('cart.index')}}" class="btn btn-default" id="basket-list" data-dismiss="modal"><span >ادامه خرید</span></a>
+                <a href="{{route('cart.index')}}" class="btn btn-info" id="basket-list" data-dismiss="modal"><span >مشاهده سبد+ادامه خرید</span></a>
             </div>
         </div>
     </div>

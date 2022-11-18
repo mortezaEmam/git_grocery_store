@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OrderDetaile;
+use App\Models\Cart;
+use App\Models\CartDetaile;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -14,7 +18,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $order=Order::query()->where('user_id',Auth::id())->latest()->take(1)->first();
+        $orderDetailes=\App\Models\OrderDetaile::query()->where('order_id',$order->id)->get();
+        return view('transcation.transcation-create',compact('order','orderDetailes'));
     }
 
     /**
@@ -22,9 +28,9 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Cart $cart)
     {
-        //
+        dd($cart);
     }
 
     /**
@@ -33,9 +39,18 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Cart $cart)
     {
-        //
+        $find_cart=Cart::query()->where('id',$cart->id)->where('user_id',Auth::id())->first();
+        $order=new Order();
+        $order->user_id=$find_cart->user_id;
+        $order->qty=$find_cart->qty;
+        $order->total_amount=$find_cart->total;
+        $order->save();
+        OrderDetaile::dispatch($order,$find_cart);//create order and order-detaies and delete cartdetailes for cart
+        $find_cart->delete();//delete basket user
+        return redirect()->route('order.index');
+
     }
 
     /**

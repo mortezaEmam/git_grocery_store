@@ -9,4 +9,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class OrderDetaile extends Model
 {
     use HasFactory,SoftDeletes;
+    protected $guarded=[];
 }

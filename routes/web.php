@@ -88,7 +88,7 @@ Route::prefix('transcations')->group(function (){
 Route::prefix('orders')->group(function (){
     Route::get('/',[OrderController::class,'index'])->name('order.index');
     Route::get('/create',[OrderController::class,'create'])->name('order.create');
-    Route::post('/store',[OrderController::class,'store'])->name('order.store');
+    Route::post('/store/{cart}',[OrderController::class,'store'])->name('order.store');
     Route::get('{order}/show',[OrderController::class,'show'])->name('order.show');
     Route::get('{order}/edit',[OrderController::class,'edit'])->name('order.edit');
     Route::post('{order}/update',[OrderController::class,'update'])->name('order.update');

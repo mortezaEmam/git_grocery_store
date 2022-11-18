@@ -18,8 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->unsignedBigInteger('qty')->default(0);
             $table->double('total_amount');
-            $table->text('description')->nullable();
-            $table->enum('is_confirm',['unpaid','paid','pending']);
+            $table->enum('is_confirm',['unpaid','paid','pending'])->default('unpaid');
             $table->timestamps();
             $table->softDeletes();
         });

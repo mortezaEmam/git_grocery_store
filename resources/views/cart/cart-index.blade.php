@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 
-    <h1 class="container-fluid text-center " style="padding: 10px;">ادامه خرید </h1>
+    <h1 class="container-fluid text-center " style="padding: 10px;">سبد خرید {{auth()->user()->name}} </h1>
     <div class="card-body" style="margin: 3%">
         <table class="table table-bordered ">
             <thead>
@@ -22,9 +22,8 @@
                     <button id="btn_detaile" class="btn btn-info">نمایش جزئیات خرید</button>
                 </td>
                 <td>
-                    <form action="{{route('transcation.create')}}" method="post">
+                    <form action="{{route('order.store',['cart'=>$cart->id])}}" method="post">
                         @csrf
-                        <input type="hidden" name="cart" value="{{$cart->id}}">
                         <button type="submit" class="btn-success btn ">ثبت سفارش+پرداخت</button>
                     </form>
                 </td>
