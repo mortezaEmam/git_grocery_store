@@ -26,27 +26,7 @@ class TranscationController extends Controller
      */
     public function create(Request $request)
     {
-
-        $cart_id = str_replace(',', '', $request->cart_id);
-        $string_cart_id = implode('', $cart_id);
-        if (strlen($string_cart_id) > 1)
-        {
-            $data = [
-                'sum_cart' => Cart::getSumTotalPrices(),
-                'number_product' => Cart::getSumNumberProduct(),
-                'cart_id' => $request->cart_id
-            ];
-
-        }
-        else
-            {
-            $data = [
-                'sum_cart' => $request->sum_price,
-                'number_product' => $request->quantity,
-                'cart_id' => $request->cart_id
-            ];
-
-        }
+dd($request->all());
         return view('transcation.transcation-create', $data);
     }
 

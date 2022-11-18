@@ -174,7 +174,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
 
 </div>
-
 @yield('content')
 <div class="newsletter">
     <div class="container">

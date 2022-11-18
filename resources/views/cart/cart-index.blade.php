@@ -1,10 +1,41 @@
 @extends('layouts.master')
 @section('content')
 
-   <h1 class="container-fluid text-center " style="padding: 10px;">ادامه خرید  </h1>
-    <div class="container">
-        <table class="table border header table-hover">
+    <h1 class="container-fluid text-center " style="padding: 10px;">ادامه خرید </h1>
+    <div class="card-body" style="margin: 3%">
+        <table class="table table-bordered ">
             <thead>
+            <tr class="alert-dark" style="background-color: blue">
+                <th>خریدار</th>
+                <th> تعداد محصولات</th>
+                <th>مبلغ کل بدون احتساب تخفیفات</th>
+                <th>اعلان ها</th>
+                <th>وضعیت</th>
+            </thead>
+            <tbody>
+
+            <tr class="font-weight-bolder">
+                <td>{{$cart->user->name}}</td>
+                <td>{{$cart->qty}}</td>
+                <td>{{number_format($cart->total)}}&nbsp;تومان</td>
+                <td>
+                    <button id="btn_detaile" class="btn btn-info">نمایش جزئیات خرید</button>
+                </td>
+                <td>
+                    <form action="{{route('transcation.create')}}" method="post">
+                        @csrf
+                        <input type="hidden" name="cart" value="{{$cart->id}}">
+                        <button type="submit" class="btn-success btn ">ثبت سفارش+پرداخت</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr><br><br>
+    <div id="cartdetaile" class="card-header-tabs" style="width: 50%;display: none;margin: 3%">
+        <table class="table table-bordered">
+            <thead style="background-color: blue">
             <th>ردیف</th>
             <th>نام کالا</th>
             <th> تعداد</th>
@@ -12,36 +43,24 @@
             <th> مبلغ کل</th>
             </thead>
             <tbody>
-            @foreach($carts as $cart)
-            <tr>
-                <td>{{$loop->iteration}}</td>
-                <td>{{$cart->title}}</td>
-                <td>{{$cart->quantity}}</td>
-                <td></td>
-            </tr>
+            @foreach($cart_detailes as $item)
+                <tr>
+                    <td>{{$loop->iteration}}</td>
+                    <td>{{$item->product->title}}</td>
+                    <td>{{$item->qyt}}</td>
+                    <td>{{number_format($item->price)}}&nbsp;تومان</td>
+                    <td>{{number_format($item->price*$item->qyt)}}&nbsp;تومان</td>
+                </tr>
             @endforeach
             </tbody>
-
-            <tfoot class="border-info">
-            @if($number_product>0)
-            <tr style="border-top: solid 2px blue;">
-                <td  style="color: red;font-weight: 900">مبلغ قابل پرداخت</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td style="color: red">{{number_format($sum_cart)}}&nbsp;&nbsp;تومان</td>
-            </tr>
-            @else
-                <tr style="border-top: solid 2px blue;">
-                    <td></td>
-
-                    <td  style="color: green;font-weight: 900;font-family: Tahoma;" colspan="3">فاکتور پرداخت نشده ندارید</td>
-
-                    <td></td>
-                </tr>
-            @endif
-            </tfoot>
         </table>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        $('#btn_detaile').click(function () {
+            $('#cartdetaile').css("display", "block");
+        })
+
+    </script>
 @endsection

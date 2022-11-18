@@ -20,21 +20,20 @@ class CartController extends Controller
      */
     public function index()
     {
-        $user=Auth::user();
-        $cart=$user->cart;
-        if (!filled($cart))
-        {
-           CartCreate::dispatch($user);
+        $user = Auth::user();
+        CartCreate::dispatch($user);
+        $cart_user = $user->cart;
+        if (filled($cart_user)) {
+            CartDetail::dispatch($cart_user);
+        } else {
+            abort(403, 'no find your cart');
         }
-
-        CartDetail::dispatch($cart);
-
+        $cart=Cart::query()->where('user_id',Auth::id())->first();
         $data = [
 
             'cart' => $cart,
-            'cart_detaile' => CartDetaile::query()->where('cart_id',$cart->id)->get(),
+            'cart_detailes' => CartDetaile::query()->where('cart_id', $cart->id)->get(),
         ];
-        dd($data);
         return view('cart.cart-index', $data);
     }
 

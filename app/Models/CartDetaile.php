@@ -10,4 +10,8 @@ class CartDetaile extends Model
 {
     use HasFactory,SoftDeletes;
     protected $guarded=[];
+    public function product()
+    {
+        return $this->belongsTo(Product::class,'product_id');
+    }
 }

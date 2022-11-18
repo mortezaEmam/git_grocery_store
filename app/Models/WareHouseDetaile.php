@@ -11,6 +11,6 @@ class WareHouseDetaile extends Model
     use HasFactory,SoftDeletes;
     public function products()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class,'product_id');
     }
 }

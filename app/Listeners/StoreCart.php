@@ -6,6 +6,8 @@ use App\Events\CartCreate;
 use App\Events\CreateCartEvent;
 use App\Models\Basket;
 use App\Models\Cart;
+use App\Models\CartDetaile;
+use App\Models\WareHouseDetaile;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Auth;
@@ -32,12 +34,22 @@ class StoreCart
      */
     public function handle(CartCreate $event)
     {
-   $cart=new Cart();
-   $cart->user_id=$event->user;
-   $cart->qty=Basket::getNumberSessionCartProduct();
-   $cart->total=Basket::getTotalSessionCart();
-   $cart->status='block';
-   $cart->save();
+        if ($event->user->cart) {
+
+            $cart = Cart::query()->where('user_id', $event->user->id)
+                    ->update([
+                        'qty'=>Basket::getNumberSessionCartProduct(),
+                        'total'=>Basket::getTotalSessionCart(),
+                    ]);
+
+        } else {
+            $cart = new Cart();
+            $cart->user_id = $event->user->id;
+            $cart->qty = Basket::getNumberSessionCartProduct();
+            $cart->total = Basket::getTotalSessionCart();
+            $cart->status = 'block';
+            $cart->save();
+        }
 
 
     }
