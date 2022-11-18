@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\Transcation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class TranscationController extends Controller
@@ -24,10 +26,11 @@ class TranscationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-dd($request->all());
-        return view('transcation.transcation-create', $data);
+        $order=Order::query()->where('user_id',Auth::id())->latest()->take(1)->first();
+        $orderDetailes=\App\Models\OrderDetaile::query()->where('order_id',$order->id)->get();
+        return view('transcation.transcation-create',compact('order','orderDetailes'));
     }
 
     /**
@@ -38,24 +41,23 @@ dd($request->all());
      */
     public function store(Request $request)
     {
-
+        $order_find=Order::query()->where('id',$request->order_id)->first();
         $transcation = Transcation::query()->create([
-            'user_id' => $request->user_id,
-            'number_product' => $request->number_product,
-            'total_price' => $request->sum_total_product,
+            'user_id' => $order_find->user_id,
+            'order_id' => $order_find->id,
+            'gateway' => $request->gateway,
             'address' => $request->address,
             'phone' => $request->phone,
             'description' => $request->description,
+            'qyt' => $order_find->qty,
+            'amount' => $order_find->total_amount,
             'code_payment' => time(),
+            'status' => 'paid',
         ]);
         $code_payment = $transcation->code_payment;
-        $cart_id = str_replace(',', '', $request->cart_id);
-        $string_cart_id = implode('', $cart_id);
-        for ($i = 0; $i < strlen($string_cart_id); $i++) {
-            Transcation::setStatusCartSuccess($string_cart_id[$i]);
-
-        }
-
+        $order_find->is_confirm='paid';
+        $order_find->updated_at=now();
+        $order_find->save();
         return view('transcation.transcation-index', compact('code_payment'));
     }
 

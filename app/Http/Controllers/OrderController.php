@@ -18,9 +18,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order=Order::query()->where('user_id',Auth::id())->latest()->take(1)->first();
-        $orderDetailes=\App\Models\OrderDetaile::query()->where('order_id',$order->id)->get();
-        return view('transcation.transcation-create',compact('order','orderDetailes'));
+        $orders=Order::query()->where('user_id',Auth::id())->get();
+        $data=[
+            'orders'=>$orders,
+        ];
+        return view('admin.order.order-index',$data);
     }
 
     /**
@@ -49,7 +51,7 @@ class OrderController extends Controller
         $order->save();
         OrderDetaile::dispatch($order,$find_cart);//create order and order-detaies and delete cartdetailes for cart
         $find_cart->delete();//delete basket user
-        return redirect()->route('order.index');
+        return redirect()->route('transcation.create');
 
     }
 

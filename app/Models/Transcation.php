@@ -11,12 +11,5 @@ class Transcation extends Model
 {
     use HasFactory,SoftDeletes;
     protected $guarded=[];
-    public static function setStatusCartSuccess($cart_id){
-        $cart_find_id=Cart::query()->where('id',$cart_id)->where('user_id',Auth::id())->update([
-            'status'=>'paid',
-            'updated_at'=>now(),
-        ]);
 
-       return true;
-    }
 }

@@ -78,7 +78,7 @@ Route::prefix('product')->group(function (){
 });
 Route::prefix('transcations')->group(function (){
     Route::get('/',[TranscationController::class,'index'])->name('transcation.index');
-    Route::post('/create',[TranscationController::class,'create'])->name('transcation.create');
+    Route::get('/create',[TranscationController::class,'create'])->name('transcation.create');
     Route::post('/store',[TranscationController::class,'store'])->name('transcation.store');
     Route::get('{transcation}/show',[TranscationController::class,'show'])->name('transcation.show');
     Route::get('{transcation}/edit',[TranscationController::class,'edit'])->name('transcation.edit');

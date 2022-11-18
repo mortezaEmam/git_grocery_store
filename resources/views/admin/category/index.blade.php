@@ -22,8 +22,8 @@
                     </thead>
                     <tbody>
 
-                        @foreach ($categories as $category):
-                        @if($category->parent_id==0):
+                        @foreach ($categories as $category)
+                        @if($category->parent_id==0)
                         <tr>
                             <td><a class="title" href="#"> {{$category->title}}</a></td>
                             <td>{{$category->sort}}</td>
@@ -62,8 +62,8 @@
                         </tr>
 
                         @endif
-                        @foreach ($categories as $subcat):
-                        @if($subcat->parent_id==$category->id):
+                        @foreach ($categories as $subcat)
+                        @if($subcat->parent_id==$category->id)
                         <tr>
                             <td>
                                 <svg class="bi bi-arrow-return-left" width="1.7em" height="1.7em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

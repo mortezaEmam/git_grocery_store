@@ -22,8 +22,9 @@ return new class extends Migration
             $table->decimal('amount');
             $table->string('address');
             $table->string('phone');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->integer('code_payment')->default(null)->unique();
+            $table->enum('status',['paid','unpaid','pending']);
             $table->timestamps();
             $table->softDeletes();
         });
