@@ -33,16 +33,17 @@ class CreateCartDetaile
     public function handle(CartDetail $event)
     {
         $baskets = Basket::getAllSessionCart();
-        foreach ($baskets as $basket) {
+        foreach ($baskets as $basket)
+        {
             if (filled(CartDetaile::query()->where('product_id', $basket['id'])->where('cart_id', $event->cart['id'])->first()))
-            {
-                $res=CartDetaile::query()->where('product_id', $basket['id'])
-                    ->update([
-                        'qyt' => $basket['quantity'],
-                        'price' => $basket['price'],
-                    ]);
+                {
+                    $res=CartDetaile::query()->where('product_id', $basket['id'])
+                        ->update([
+                            'qyt' => $basket['quantity'],
+                            'price' => $basket['price'],
+                        ]);
 
-            }
+                }
             else
                 {
                 $CartDetaile = new CartDetaile();

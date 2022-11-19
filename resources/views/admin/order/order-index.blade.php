@@ -30,10 +30,15 @@
                             </td>
                             <td>{{$order->created_at}}</td>
                             @if($order->is_confirm=='paid')
-                                <td>کدپیگیری:{{$order->transaction->code_payment}}</td>
+                                <td>تاریخ پرداخت{{$order->updated_at}}</td>
                             @else
                                 <td>
-                                    <button class="btn btn-primary"> پرداخت سفارش+ادامه</button>
+                                    <form action="{{route('transcation.create')}}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="order_id" value="{{$order->id}}">
+                                        <button type="submit" class="btn btn-primary"> پرداخت سفارش+ادامه</button>
+
+                                    </form>
                                 </td>
 
                             @endif

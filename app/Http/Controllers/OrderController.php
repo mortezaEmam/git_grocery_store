@@ -18,7 +18,16 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders=Order::query()->where('user_id',Auth::id())->get();
+        $user = Auth::user();
+        if ($user->hasrole('super_admin'))
+        {
+            $orders = Order::all();
+        }
+        else
+        {
+            $orders = Order::query()->where('user_id', Auth::id())->get();
+
+        }
         $data=[
             'orders'=>$orders,
         ];
@@ -63,7 +72,8 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        $orderDetailes=\App\Models\OrderDetaile::query()->where('order_id',$order->id)->get();
+       return view('admin.order.order-detaile-show',compact('orderDetailes'));
     }
 
     /**

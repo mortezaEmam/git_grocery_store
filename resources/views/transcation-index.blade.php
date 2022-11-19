@@ -10,6 +10,6 @@
 
 
         </div>
-        <a href="{{route('order.index')}}" class="btn btn-primary" >مشاهده سفارشات شما</a>
+        <a href="{{route('transcation.index')}}" class="btn btn-primary" >مشاهده سفارشات شما</a>
     </div>
 @endsection

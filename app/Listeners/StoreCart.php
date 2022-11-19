@@ -34,23 +34,23 @@ class StoreCart
      */
     public function handle(CartCreate $event)
     {
-        if ($event->user->cart) {
-
-            $cart = Cart::query()->where('user_id', $event->user->id)
+        $cart = Cart::query()->where('user_id', $event->user->id)->get();
+        if (filled($cart))
+            {
+                Cart::query()->where('user_id', $event->user->id)
                     ->update([
-                        'qty'=>Basket::getNumberSessionCartProduct(),
-                        'total'=>Basket::getTotalSessionCart(),
+                        'qty' => Basket::getNumberSessionCartProduct(),
+                        'total' => Basket::getTotalSessionCart(),
                     ]);
-
-        } else {
-            $cart = new Cart();
-            $cart->user_id = $event->user->id;
-            $cart->qty = Basket::getNumberSessionCartProduct();
-            $cart->total = Basket::getTotalSessionCart();
-            $cart->status = 'block';
-            $cart->save();
+            }
+        else
+            {
+                $cart = new Cart();
+                $cart->user_id = $event->user->id;
+                $cart->qty = Basket::getNumberSessionCartProduct();
+                $cart->total = Basket::getTotalSessionCart();
+                $cart->status = 'block';
+                $cart->save();
         }
-
-
     }
 }

@@ -148,7 +148,7 @@
         </a>
     </li>
     <ul class="sub-transcation">
-        <li><a href="">لیست تراکنش ها</a></li>
+        <li><a href="{{route('transcation.index')}}">لیست تراکنش ها</a></li>
 
     </ul>
     <li class="factors">
@@ -174,7 +174,7 @@
         </a>
     </li>
     <ul class="sub-factor">
-        <li><a href="\">لیست سفارشات</a></li>
+        <li><a href="{{route('order.index')}}">لیست سفارشات</a></li>
 
     </ul>
 

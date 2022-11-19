@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Basket;
+use App\Models\Cart;
+use App\Models\CartDetaile;
 use App\Models\Product;
 use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use mysql_xdevapi\Session;
 
@@ -155,6 +158,16 @@ class BasketController extends Controller
 
         $find_session_cart = Basket::getFindIdSessionCart($product);
         session()->forget('cart-product-' . $find_session_cart['id']);
+        if(Auth::check())
+        {
+            $cart=Cart::query()->where('user_id',Auth::id())->first();
+            if(filled($cart))
+            {
+                CartDetaile::query()->where('cart_id',$cart->id)
+                    ->where('product_id',$product)
+                    ->delete();
+            }
+        }
         return \response()->json([
             'message' => 'ok',
         ]);

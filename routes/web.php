@@ -79,6 +79,7 @@ Route::prefix('product')->group(function (){
 Route::prefix('transcations')->group(function (){
     Route::get('/',[TranscationController::class,'index'])->name('transcation.index');
     Route::get('/create',[TranscationController::class,'create'])->name('transcation.create');
+    Route::post('/create',[TranscationController::class,'create'])->name('transcation.create');
     Route::post('/store',[TranscationController::class,'store'])->name('transcation.store');
     Route::get('{transcation}/show',[TranscationController::class,'show'])->name('transcation.show');
     Route::get('{transcation}/edit',[TranscationController::class,'edit'])->name('transcation.edit');
@@ -90,6 +91,7 @@ Route::prefix('orders')->group(function (){
     Route::get('/create',[OrderController::class,'create'])->name('order.create');
     Route::post('/store/{cart}',[OrderController::class,'store'])->name('order.store');
     Route::get('{order}/show',[OrderController::class,'show'])->name('order.show');
+    Route::post('{order}/show',[OrderController::class,'show'])->name('order.show');
     Route::get('{order}/edit',[OrderController::class,'edit'])->name('order.edit');
     Route::post('{order}/update',[OrderController::class,'update'])->name('order.update');
     Route::get('{order}/destroy',[OrderController::class,'destroy'])->name('order.destroy');

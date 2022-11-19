@@ -18,7 +18,17 @@ class TranscationController extends Controller
      */
     public function index()
     {
-        //
+        $user=Auth::user();
+        if($user->hasrole('super_admin'))
+            {
+                $transactions=Transcation::all();
+            }
+       else
+            {
+                $transactions=Transcation::query()->where('user_id',$user->id)->get();
+
+            }
+        return view('transcation.transactions-index',compact('transactions'));
     }
 
     /**
@@ -26,11 +36,21 @@ class TranscationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $order=Order::query()->where('user_id',Auth::id())->latest()->take(1)->first();
-        $orderDetailes=\App\Models\OrderDetaile::query()->where('order_id',$order->id)->get();
-        return view('transcation.transcation-create',compact('order','orderDetailes'));
+        if($request->has('order_id'))
+        {
+            $order=Order::query()->where('id',$request->order_id)->first();
+            $orderDetailes=\App\Models\OrderDetaile::query()->where('order_id',$order->id)->get();
+
+        }
+        else
+        {
+            $order=Order::query()->where('user_id',Auth::id())->latest()->take(1)->first();
+            $orderDetailes=\App\Models\OrderDetaile::query()->where('order_id',$order->id)->get();
+
+        }
+        return view('transcation-create',compact('order','orderDetailes'));
     }
 
     /**
@@ -58,7 +78,7 @@ class TranscationController extends Controller
         $order_find->is_confirm='paid';
         $order_find->updated_at=now();
         $order_find->save();
-        return view('transcation.transcation-index', compact('code_payment'));
+        return view('transcation-index', compact('code_payment'));
     }
 
     /**

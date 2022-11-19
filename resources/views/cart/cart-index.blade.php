@@ -17,16 +17,18 @@
             <tr class="font-weight-bolder">
                 <td>{{$cart->user->name}}</td>
                 <td>{{$cart->qty}}</td>
-                <td>{{number_format($cart->total)}}&nbsp;تومان</td>
+                <td>{{number_format($cart->total)}}&nbsp;تومان
                 <td>
                     <button id="btn_detaile" class="btn btn-info">نمایش جزئیات خرید</button>
                 </td>
+                @if($cart->total>0)
                 <td>
                     <form action="{{route('order.store',['cart'=>$cart->id])}}" method="post">
                         @csrf
                         <button type="submit" class="btn-success btn ">ثبت سفارش+پرداخت</button>
                     </form>
                 </td>
+                @endif
             </tr>
             </tbody>
         </table>
