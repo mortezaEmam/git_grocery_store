@@ -14,16 +14,34 @@
                             <p>
                                 {{$product->title}}</p>
 
-                            <h4>{{$product->price}} <span>$10.00</span></h4>
+                            <h4>{{$product->price}}&nbsp;&nbsp;تومان <span>$10.00&nbsp;&nbsp;تومان </span></h4>
 
                         </div>
+                        @foreach($warehousedetailes as $item)
+                            @if($product->id==$item['id'] and $item['stock']>0)
                         <div class="snipcart-details top_brand_home_details">
                             <form id="add-basket-{{$product->id}}" action="">
                                 @csrf
-                                <button type="submit" class="btn btn-danger my-cart-btn hvr-sweep-to-left"
+                                <button type="submit" class="btn btn-success my-cart-btn hvr-sweep-to-left"
                                         onclick="addToCart({{$product->id}})">اضافه کردن به سبد
                                 </button>
                             </form>
+                        </div>
+                            @elseif($product->id==$item['id'] and $item['stock']==0)
+                                <div class="snipcart-details top_brand_home_details">
+                                        <button type="submit" class="btn btn-danger my-cart-btn hvr-sweep-to-left">نمی توانید به سبد اضافه کنید
+                                        </button>
+                                </div>
+                            @endif
+                        @endforeach
+                        <div>
+                            @foreach($warehousedetailes as $item)
+                                @if($product->id==$item['id'])
+                                    <label>موجودی انبار:</label>
+                                    <span class="form-control">{{$item['stock']}}&nbsp;&nbsp;{{$item['vahed']}}</span>
+                                    <input class="form-control" type="hidden" name="stock" value="{{$item['stock']}} ">
+                                @endif
+                            @endforeach
                         </div>
                     </div>
                 </figure>

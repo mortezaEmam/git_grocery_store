@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('warehouse_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('product_counting_unit_id');
-            $table->string('stock');
+            $table->unsignedBigInteger('stock');
             $table->timestamps();
             $table->softDeletes();
         });

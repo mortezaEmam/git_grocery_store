@@ -28,7 +28,6 @@ class ViewServiceMasterProvider extends ServiceProvider
      */
     public function boot()
     {
-
         view::composer(['index', 'category'], function ($view) {
             $view->with('categories', Category::getAllCategories());
         });

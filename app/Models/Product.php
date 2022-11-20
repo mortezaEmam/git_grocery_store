@@ -32,6 +32,12 @@ class Product extends Model
     {
         return $this->hasMany(WareHouseDetaile::class,'product_id');
     }
+    public static function  getStockwarehousedetailesId($product)
+    {
+       $find_stock= WareHouseDetaile::query()->where('product_id',$product)->first();
+       $find_vahed=ProductCountingUnit::query()->where('id',$find_stock->product_counting_unit_id)->first();
+       return ['id'=>$product,'stock'=>$find_stock->stock,'vahed'=>$find_vahed->title];
+    }
     public static function getImageUrl($product)
     {
         $find_image=$product->file;
