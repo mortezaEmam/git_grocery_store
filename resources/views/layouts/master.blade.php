@@ -160,10 +160,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="modal-body">
                 <table class="table table-hover table-responsive" id="my-cart-table">
                     <tbody class="addProduct">
-
                     </tbody>
-
-
                 </table>
             </div>
             <div class="modal-footer">
@@ -172,7 +169,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </div>
         </div>
     </div>
-
 </div>
 @yield('content')
 <div class="newsletter">
@@ -417,6 +413,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                 },
                 success: function (result) {
+                    if(!result.status)
+                    {
+                        alert(result.message);
+                    }
+
+
                     showlist();
 
                 }

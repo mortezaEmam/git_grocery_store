@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\OrderDetaile;
+use App\Events\EventsOrderDetaile;
 use App\Models\CartDetaile;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -22,10 +22,10 @@ class CreateOrderDetaile
     /**
      * Handle the event.
      *
-     * @param  \App\Events\OrderDetaile  $event
+     * @param  \App\Events\EventsOrderDetaile  $event
      * @return void
      */
-    public function handle(OrderDetaile $event)
+    public function handle(EventsOrderDetaile $event)
     {
         $find_cartdetailes=CartDetaile::query()->where('cart_id',$event->cart->id)->get();
 

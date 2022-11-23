@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\OrderDetaile;
 use App\Models\post;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts=post::all();
+        return view('admin.post.post-index',compact('posts'));
     }
 
     /**
@@ -24,7 +27,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.post.post-create');
     }
 
     /**
@@ -35,7 +38,27 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = new post();
+        if (filled($request->status)) {
+            $status = $request->status;
+        } else {
+            $status = 'off';
+        }
+        if ($request->has('tel2'))
+        {
+            $tel2=$request->tel2;
+        }
+        else
+        {
+            $tel2=null;
+        }
+
+        $post->address = $request->address;
+        $post->tel1 = $request->tel1;
+        $post->tel2 = $tel2;
+        $post->status = $status;
+        $post->save();
+        return redirect()->route('post.index');
     }
 
     /**
@@ -57,7 +80,7 @@ class PostController extends Controller
      */
     public function edit(post $post)
     {
-        //
+
     }
 
     /**

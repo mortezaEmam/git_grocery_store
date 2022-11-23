@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('order_id');
             $table->enum('gateway',['zarinpall','shaparak']);
             $table->integer('qyt');
-            $table->decimal('amount');
+            $table->unsignedBigInteger('amount');
             $table->string('address');
             $table->string('phone');
             $table->text('description')->nullable();

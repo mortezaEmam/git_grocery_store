@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\HomeController;
 use \App\Http\Controllers\UserController;
@@ -47,8 +48,8 @@ Route::prefix('roles')->group(function () {
 
 
 
-Route::get('/admin', [AdminController::class,'index'])->name('admin');
-Route::prefix('warehouse')->group(function (){
+Route::get('/admin', [AdminController::class,'index'])->middleware(['auth'])->name('admin');
+Route::prefix('warehouse')->middleware(['auth'])->group(function (){
     Route::get('/',[WareHousController::class,'index'])->name('warehouse.index');
     Route::get('/create',[WareHousController::class,'create'])->name('warehouse.create');
     Route::post('/store',[WareHousController::class,'store'])->name('warehouse.store');
@@ -57,7 +58,7 @@ Route::prefix('warehouse')->group(function (){
     Route::post('{warehouse}/update',[WareHousController::class,'update'])->name('warehouse.update');
     Route::get('{warehouse}/destroy',[WareHousController::class,'destroy'])->name('warehouse.destroy');
 });
-Route::prefix('category')->group(function (){
+Route::prefix('category')->middleware(['auth'])->group(function (){
     Route::get('/',[CategoryController::class,'index'])->name('category.index');
     Route::get('/create',[CategoryController::class,'create'])->name('category.create');
     Route::post('/store',[CategoryController::class,'store'])->name('category.store');
@@ -66,7 +67,7 @@ Route::prefix('category')->group(function (){
     Route::post('{category}/update',[CategoryController::class,'update'])->name('category.update');
     Route::get('{category}/destroy',[CategoryController::class,'destroy'])->name('category.destroy');
 });
-Route::prefix('product')->group(function (){
+Route::prefix('product')->middleware(['auth'])->group(function (){
     Route::get('/',[ProductController::class,'index'])->name('product.index');
     Route::get('/create',[ProductController::class,'create'])->name('product.create');
     Route::post('/store',[ProductController::class,'store'])->name('product.store');
@@ -76,7 +77,7 @@ Route::prefix('product')->group(function (){
     Route::get('{product}/destroy',[ProductController::class,'destroy'])->name('product.destroy');
     Route::post('/delete_quantiy/{product}',[ProductController::class,'setDestoryDescriptionId'])->name('product.delete_quantiy');
 });
-Route::prefix('transcations')->group(function (){
+Route::prefix('transcations')->middleware(['auth'])->group(function (){
     Route::get('/',[TranscationController::class,'index'])->name('transcation.index');
     Route::get('/create',[TranscationController::class,'create'])->name('transcation.create');
     Route::post('/create',[TranscationController::class,'create'])->name('transcation.create');
@@ -86,7 +87,7 @@ Route::prefix('transcations')->group(function (){
     Route::post('{transcation}/update',[TranscationController::class,'update'])->name('transcation.update');
     Route::get('{transcation}/destroy',[TranscationController::class,'destroy'])->name('transcation.destroy');
 });
-Route::prefix('orders')->group(function (){
+Route::prefix('orders')->middleware(['auth'])->group(function (){
     Route::get('/',[OrderController::class,'index'])->name('order.index');
     Route::get('/create',[OrderController::class,'create'])->name('order.create');
     Route::post('/store/{cart}',[OrderController::class,'store'])->name('order.store');
@@ -113,5 +114,14 @@ Route::prefix('baskets')->group(function (){
     Route::get('{basket}/edit',[BasketController::class,'edit'])->name('basket.edit');
     Route::post('/update/{basket}',[BasketController::class,'update'])->name('basket.update');
     Route::post('/destroy/{basket}',[BasketController::class,'destroy'])->name('basket.destroy');
+});
+Route::prefix('posts')->middleware(['auth'])->group(function (){
+    Route::get('/',[PostController::class,'index'])->name('post.index');
+    Route::get('/create',[PostController::class,'create'])->name('post.create');
+    Route::post('/store',[PostController::class,'store'])->name('post.store');
+    Route::get('{post}/edit',[PostController::class,'edit'])->name('post.edit');
+    Route::get('{post}/show',[PostController::class,'show'])->name('post.show');
+    Route::post('{post}/update',[PostController::class,'update'])->name('post.update');
+    Route::get('{post}/destroy',[PostController::class,'destroy'])->name('post.destroy');
 });
 

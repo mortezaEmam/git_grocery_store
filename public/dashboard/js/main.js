@@ -7,6 +7,13 @@ $(document).ready(function() {
     });
 });
 $(document).ready(function() {
+    $('.admin-menu > ul > li.posts').click(function(){
+        //$('ul.sub-admin',this).slideToggle();
+        $("ul.sub-post").slideToggle();
+        //$(".admin-menu  ul  li > ul.sub-admin").slideToggle();
+    });
+});
+$(document).ready(function() {
     $('.admin-menu > ul > li.role').click(function(){
         $("ul.sub-role").slideToggle();
     });

@@ -13,7 +13,7 @@
                         <th>مبلغ قابل پرداخت</th>
                         <th>وضعیت پرداخت</th>
                         <th>تاریخ ثبت سفارش</th>
-                        <th>عملیات</th>
+                        <th colspan="2">عملیات</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -31,6 +31,7 @@
                             <td>{{$order->created_at}}</td>
                             @if($order->is_confirm=='paid')
                                 <td>تاریخ پرداخت{{$order->updated_at}}</td>
+                                <td><a href="{{route('post.create',['order'=>$order->id])}}" class="btn btn-success">ارسال محصول</a> </td>
                             @else
                                 <td>
                                     <form action="{{route('transcation.create')}}" method="post">

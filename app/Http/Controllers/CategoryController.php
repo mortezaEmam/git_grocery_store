@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -68,8 +69,13 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-$products=$category->products;
-        return view('category' , compact('category','products'));
+        $products=$category->products;
+        $products_warehouse = Product::query()->where('status','on')->get();
+        foreach ($products_warehouse as $product)
+        {
+            $warehousedetailes[] = Product::getStockwarehousedetailesId($product->id);
+        }
+        return view('category' , compact('category','products','warehousedetailes'));
     }
 
     /**

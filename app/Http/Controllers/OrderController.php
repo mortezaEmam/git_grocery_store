@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\OrderDetaile;
+use App\Events\EventsOrderDetaile;
 use App\Models\Cart;
 use App\Models\CartDetaile;
 use App\Models\Order;
@@ -58,7 +58,7 @@ class OrderController extends Controller
         $order->qty=$find_cart->qty;
         $order->total_amount=$find_cart->total;
         $order->save();
-        OrderDetaile::dispatch($order,$find_cart);//create order and order-detaies and delete cartdetailes for cart
+        EventsOrderDetaile::dispatch($order,$find_cart);//create order and order-detaies and delete cartdetailes for cart
         $find_cart->delete();//delete basket user
         return redirect()->route('transcation.create');
 

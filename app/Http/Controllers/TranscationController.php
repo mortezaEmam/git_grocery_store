@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\WarehouseDetaileSold;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Transcation;
@@ -78,6 +79,7 @@ class TranscationController extends Controller
         $order_find->is_confirm='paid';
         $order_find->updated_at=now();
         $order_find->save();
+        WarehouseDetaileSold::dispatch($order_find);
         return view('transcation-index', compact('code_payment'));
     }
 

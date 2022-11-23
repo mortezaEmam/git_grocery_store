@@ -4,14 +4,16 @@ namespace App\Providers;
 
 use App\Events\CartCreate;
 use App\Events\CartDetail;
-use App\Events\OrderDetaile;
+use App\Events\EventsOrderDetaile;
 use App\Events\UpdateWareHouseDetaile;
 use App\Events\WareHouseCreate;
+use App\Events\WarehouseDetaileSold;
 use App\Listeners\CreateCartDetaile;
 use App\Listeners\CreateOrderDetaile;
 use App\Listeners\StoreCart;
 use App\Listeners\StoreWareHouse;
 use App\Listeners\UpdateOrCreateWarehouseDetaile;
+use App\Listeners\UpdateStockProduct;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -28,22 +30,25 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        CartCreate::class=>[
+        CartCreate::class => [
             StoreCart::class,
         ],
-        CartDetail::class=>[
+        CartDetail::class => [
             CreateCartDetaile::class,
         ],
-        WareHouseCreate::class=>[
+        WareHouseCreate::class => [
             StoreWareHouse::class,
         ],
-        UpdateWareHouseDetaile::class=>[
+        UpdateWareHouseDetaile::class => [
             UpdateOrCreateWarehouseDetaile::class,
         ],
-        OrderDetaile::class=>[
+        EventsOrderDetaile::class => [
             CreateOrderDetaile::class,
         ],
+        WarehouseDetaileSold::class => [
+            UpdateStockProduct::class,
 
+        ],
 
     ];
 

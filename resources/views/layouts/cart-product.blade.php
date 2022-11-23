@@ -10,7 +10,7 @@
                         <div class="snipcart-thumb">
                             <a href="{{route('product.show',['product'=>$product->id])}}"><img
                                     src="{{\App\Models\Product::getImageUrl($product)}}" alt=" "
-                                    class="img-responsive"/></a>
+                                    class="img-responsive" style="width: 150px;height:150px"/></a>
                             <p>
                                 {{$product->title}}</p>
 

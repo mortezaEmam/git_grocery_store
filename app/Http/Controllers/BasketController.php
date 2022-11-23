@@ -6,6 +6,7 @@ use App\Models\Basket;
 use App\Models\Cart;
 use App\Models\CartDetaile;
 use App\Models\Product;
+use App\Models\WareHouseDetaile;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -129,6 +130,7 @@ class BasketController extends Controller
     {
         $find_product_basket = Basket::getFindIdSessionCart($basket);
         $product = Product::query()->find($basket);
+        $warehousedetaile_product=WareHouseDetaile::query()->where('product_id',$find_product_basket['id'])->first();
         $cart_new = [
             'id' => $find_product_basket['id'],
             'title' => $product->title,
@@ -139,10 +141,22 @@ class BasketController extends Controller
             'created_at' => $find_product_basket['created_at'],
             'updated_at' => now(),
         ];
-        \session()->put('cart-product-' . $basket, $cart_new);
+        if($warehousedetaile_product->stock>=$cart_new['quantity'])
+        {
+            \session()->put('cart-product-' . $basket, $cart_new);
+            $status=true;
+            $message='ok change amount product';
+        }
+        else
+        {
+            $message='موجودی انبار با درخواست شما مطابقت ندارد';
+            $status=false;
+        }
+
 
         return \response()->json([
-            'message' => 'ok change',
+            'message' =>$message,
+            'status'=>$status
 
         ]);
     }
