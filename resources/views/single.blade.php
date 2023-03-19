@@ -31,7 +31,7 @@
                     </div>
 
 
-                    <div class="clearfix"><img src="{{ $url_file}}" width="700" style="height: auto" class="attachment-medium size-medium wp-post-image" alt=""></div>
+                    <div class="clearfix"><img src="{{getUrlImage($product)}}" style="width:300px; height: auto" class="attachment-medium size-medium wp-post-image" alt=""></div>
                     <div class="thumb-single-product">
 
                     </div>

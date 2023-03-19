@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->string('tel1');
-            $table->string('tel2')->nullable();
-            $table->text('address');
-            $table->enum('status',['on','off'])->default('off');
+            $table->foreignId('order_id')->constrained('orders');
+            $table->foreignId('user_id')->constrained('users');
+            $table->boolean('status');
             $table->timestamps();
             $table->softDeletes();
-
         });
     }
 
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('reservations');
     }
 };

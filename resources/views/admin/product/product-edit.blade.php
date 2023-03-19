@@ -20,13 +20,13 @@
                         <div class="row">
                             <div class="col-md-9">
                                 <input class="form-control inputbig" type="text" name="name"
-                                       value="{{old('name',$product->title)}}">
+                                       value="{{$product->title}}">
 
                                 <br>
                                 <input class="form-control inputbig" type="text" name="short_description"
-                                       value="{{old('short_description',$product->short_description)}}"/>
+                                       value="{{$product->short_description}}"/>
                                 <br>
-                                <textarea class="form-control" name="description" rows="12">{{old('description',$product->title)}}"</textarea>
+                                <textarea class="form-control" name="description" rows="12">{{$product->description}}</textarea>
 
                                 <br>
                                 <hr>
@@ -93,7 +93,7 @@
                                     <hr>
                                     <div class="container"
                                          style="background-color: #3c763d;padding: 3%;border-radius: 5px;">
-                                        <h3>اظلاعات انبار</h3>
+                                        <h3>اطلاعات انبار</h3>
                                         <br>
                                         <hr>
                                         <label>انبار:</label>
@@ -123,7 +123,7 @@
                                     <hr>
                                     <div id="warehouse" class="container"
                                          style="background-color: #3c763d;padding: 3%;border-radius: 5px;display: none">
-                                        <h3>اظلاعات انبار</h3>
+                                        <h3>اطلاعات انبار</h3>
                                         <br>
                                         <hr>
                                         <label>انبار:</label>

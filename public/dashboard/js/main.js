@@ -7,6 +7,20 @@ $(document).ready(function() {
     });
 });
 $(document).ready(function() {
+    $('.admin-menu > ul > li.messages').click(function(){
+        //$('ul.sub-admin',this).slideToggle();
+        $("ul.sub-messages").slideToggle();
+        //$(".admin-menu  ul  li > ul.sub-admin").slideToggle();
+    });
+});
+$(document).ready(function() {
+    $('.admin-menu > ul > li.banner').click(function(){
+        //$('ul.sub-admin',this).slideToggle();
+        $("ul.sub-banner").slideToggle();
+        //$(".admin-menu  ul  li > ul.sub-admin").slideToggle();
+    });
+});
+$(document).ready(function() {
     $('.admin-menu > ul > li.posts').click(function(){
         //$('ul.sub-admin',this).slideToggle();
         $("ul.sub-post").slideToggle();

@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="{{asset('dashboard/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{ asset('dashboard/css/style.css') }}">
+
     @yield('dashboard-styles')
 </head>
 <body>

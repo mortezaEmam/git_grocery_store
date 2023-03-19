@@ -37,7 +37,7 @@
                                 <br>
                                 <hr>
                                 <div id="warehouse" class="container" style="background-color: #3c763d;padding: 3%;border-radius: 5px;display: none;">
-                                    <h3>اظلاعات انبار</h3>
+                                    <h3>اطلاعات انبار</h3>
                                     <br><hr>
                                     <label>انبار:</label>
                                     <select class="form-control col-md-8" name="warehouse_id" required>

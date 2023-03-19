@@ -23,18 +23,6 @@ class UserSeeder extends Seeder
            'mobile'=>'09154868372',
            'password'=>Hash::make('12345678'),
         ]);
-        DB::table('roles')->insert([
-            'id' => 1,
-            'name' => 'super_admin',
-            'display_name' => 'سوپر ادمین',
-            'description' => 'سوپر ادمین کلی سیستم',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        DB::table('role_user')->insert([
-            'user_id'=>1,
-            'role_id'=>1,
-            'user_type'=>User::class,
-        ]);
+
     }
 }

@@ -119,7 +119,7 @@ return [
 
     /*
      |--------------------------------------------------------------------------
-     | Custom Error Handler for Deprecated warnings
+     | Icostum Error Handler for Deprecated warnings
      |--------------------------------------------------------------------------
      |
      | When enabled, the Debugbar shows deprecated warnings for Symfony components

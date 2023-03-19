@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Custom\IReservation;
 use App\Events\WarehouseDetaileSold;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Reservation;
 use App\Models\Transcation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -79,7 +81,7 @@ class TranscationController extends Controller
         $order_find->is_confirm='paid';
         $order_find->updated_at=now();
         $order_find->save();
-        WarehouseDetaileSold::dispatch($order_find);
+        self::ReserveInventory($order_find);
         return view('transcation-index', compact('code_payment'));
     }
 
@@ -126,5 +128,15 @@ class TranscationController extends Controller
     public function destroy(Transcation $transcation)
     {
         //
+    }
+    static public function ReserveInventory(Order $order, $status = false)
+    {
+        Reservation::query()->where('order_id',$order->id)
+            ->where('user_id',Auth::id())
+            ->update([
+                         'status'=>true,
+                    ]);
+        WarehouseDetaileSold::dispatch($order);
+
     }
 }

@@ -9,7 +9,7 @@
                     <div class="snipcart-item block">
                         <div class="snipcart-thumb">
                             <a href="{{route('product.show',['product'=>$product->id])}}"><img
-                                    src="{{\App\Models\Product::getImageUrl($product)}}" alt=" "
+                                    src="{{\App\helpers\Helpers::getUrlImage($product)}}" alt=" {{$product->title}}"
                                     class="img-responsive" style="width: 150px;height:150px"/></a>
                             <p>
                                 {{$product->title}}</p>
@@ -17,8 +17,7 @@
                             <h4>{{$product->price}}&nbsp;&nbsp;تومان <span>$10.00&nbsp;&nbsp;تومان </span></h4>
 
                         </div>
-                        @foreach($warehousedetailes as $item)
-                            @if($product->id==$item['id'] and $item['stock']>0)
+
                         <div class="snipcart-details top_brand_home_details">
                             <form id="add-basket-{{$product->id}}" action="">
                                 @csrf
@@ -26,22 +25,6 @@
                                         onclick="addToCart({{$product->id}})">اضافه کردن به سبد
                                 </button>
                             </form>
-                        </div>
-                            @elseif($product->id==$item['id'] and $item['stock']==0)
-                                <div class="snipcart-details top_brand_home_details">
-                                        <button type="submit" class="btn btn-danger my-cart-btn hvr-sweep-to-left">نمی توانید به سبد اضافه کنید
-                                        </button>
-                                </div>
-                            @endif
-                        @endforeach
-                        <div>
-                            @foreach($warehousedetailes as $item)
-                                @if($product->id==$item['id'])
-                                    <label>موجودی انبار:</label>
-                                    <span class="form-control">{{$item['stock']}}&nbsp;&nbsp;{{$item['vahed']}}</span>
-                                    <input class="form-control" type="hidden" name="stock" value="{{$item['stock']}} ">
-                                @endif
-                            @endforeach
                         </div>
                     </div>
                 </figure>

@@ -13,15 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('post_details', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('post_id');
-            $table->unsignedBigInteger('reciver_id');
-            $table->unsignedBigInteger('warehouse_id');
-            $table->string('sender_phone');
-            $table->string('reciver_address');
-            $table->string('reciver_phone');
-            $table->string('qty');
+            $table->foreignId('order_id')->constrained('orders');
+            $table->foreignId('product_id')->constrained('products');
+            $table->string('title');
+            $table->boolean('is_confirm');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -34,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_details');
+        Schema::dropIfExists('messages');
     }
 };

@@ -5,10 +5,12 @@ namespace App\Providers;
 use App\Events\CartCreate;
 use App\Events\CartDetail;
 use App\Events\EventsOrderDetaile;
+use App\Events\MessageWarehouse;
 use App\Events\UpdateWareHouseDetaile;
 use App\Events\WareHouseCreate;
 use App\Events\WarehouseDetaileSold;
 use App\Listeners\CreateCartDetaile;
+use App\Listeners\CreateMessage;
 use App\Listeners\CreateOrderDetaile;
 use App\Listeners\StoreCart;
 use App\Listeners\StoreWareHouse;
@@ -48,6 +50,9 @@ class EventServiceProvider extends ServiceProvider
         WarehouseDetaileSold::class => [
             UpdateStockProduct::class,
 
+        ],
+        MessageWarehouse::class=>[
+            CreateMessage::class,
         ],
 
     ];

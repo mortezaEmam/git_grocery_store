@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Message;
 use App\Models\Order;
-use App\Models\OrderDetaile;
-use App\Models\post;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class MessageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts=post::all();
-        return view('admin.post.post-index',compact('posts'));
+        //
     }
 
     /**
@@ -27,7 +26,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.post.post-create');
+
+
     }
 
     /**
@@ -36,38 +36,23 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Product $product,Order $order)
     {
-        $post = new post();
-        if (filled($request->status)) {
-            $status = $request->status;
-        } else {
-            $status = 'off';
-        }
-        if ($request->has('tel2'))
-        {
-            $tel2=$request->tel2;
-        }
-        else
-        {
-            $tel2=null;
-        }
 
-        $post->address = $request->address;
-        $post->tel1 = $request->tel1;
-        $post->tel2 = $tel2;
-        $post->status = $status;
-        $post->save();
-        return redirect()->route('post.index');
+        return redirect()->back();
     }
-
+    public function recive(Product $product,Order $order)
+    {
+        $recive_messages=Message::all();
+        return view('admin.message.message-recive',compact('recive_messages'));
+    }
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\post  $post
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(post $post)
+    public function show($id)
     {
         //
     }
@@ -75,22 +60,22 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\post  $post
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(post $post)
+    public function edit($id)
     {
-
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\post  $post
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, post $post)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -98,11 +83,12 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\post  $post
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(post $post)
+    public function destroy($id)
     {
         //
     }
+
 }

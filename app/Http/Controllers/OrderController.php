@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Custom\IReservation;
 use App\Events\EventsOrderDetaile;
 use App\Models\Cart;
 use App\Models\CartDetaile;
 use App\Models\Order;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-class OrderController extends Controller
+ class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -60,6 +61,7 @@ class OrderController extends Controller
         $order->save();
         EventsOrderDetaile::dispatch($order,$find_cart);//create order and order-detaies and delete cartdetailes for cart
         $find_cart->delete();//delete basket user
+        self::ReserveInventory($order);//save order user in reserve for sell
         return redirect()->route('transcation.create');
 
     }
@@ -109,4 +111,13 @@ class OrderController extends Controller
     {
         //
     }
-}
+
+     static public function ReserveInventory(Order $order, $status = false)
+     {
+         Reservation::query()->whereNotNull('order_id',$order->id)->create([
+             'order_id'=>$order->id,
+             'user_id'=>Auth::id(),
+             'status'=>$status,
+         ]);
+     }
+ }

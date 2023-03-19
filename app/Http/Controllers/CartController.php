@@ -8,8 +8,11 @@ use App\Listeners\CreateCartDetaile;
 use App\Models\Basket;
 use App\Models\Cart;
 use App\Models\CartDetaile;
+use App\Models\Order;
+use App\Models\OrderDetaile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use mysql_xdevapi\Exception;
 
 class CartController extends Controller
 {
@@ -20,15 +23,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        CartCreate::dispatch($user);
-        $cart_user = $user->cart;
-        if (filled($cart_user)) {
-            CartDetail::dispatch($cart_user);
-        } else {
-            abort(403, 'no find your cart');
-        }
-        $cart=Cart::query()->where('user_id',Auth::id())->first();
+        $cart = Cart::query()->where('user_id', Auth::id())->first();
         $data = [
 
             'cart' => $cart,
@@ -44,7 +39,14 @@ class CartController extends Controller
      */
     public function create()
     {
-        //
+        if (Auth::check()) {
+            Order::SetCartForUser();
+            $cart = Cart::query()->where('user_id', Auth::id())->first();
+            return redirect()->route('cart.store',['cart'=>$cart]);
+        } else {
+            redirect()->route('login');
+        }
+
     }
 
     /**
@@ -53,9 +55,16 @@ class CartController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Cart $cart)
     {
-        //
+        $this->StoreOrderDetail($cart);
+
+        return redirect()->route('cart.index');
+
+    }
+    public function StoreOrderDetail(Cart $cart)
+    {
+        OrderDetaile::SetCartToOrder($cart);
     }
 
     /**

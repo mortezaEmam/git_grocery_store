@@ -33,7 +33,7 @@
                 <td>{{mb_substr($product->short_description,0,5).'...'}}</td>
                 <td>{{$product->category->title}}</td>
                 <td>{{number_format($product->price)}}&nbsp;تومان</td>
-                <td><img src="{{\App\Models\Product::getImageUrl($product)}}" width="90px" height="90px" alt=""></td>
+                <td><img src="{{\App\helpers\Helpers::getUrlImage($product)}}" width="90px" height="90px" alt=""></td>
                 <td>@if($product->status=='on') <span class="alert-success">فعال</span>@else <span class="alert-danger">غیرفعال</span> @endif </td>
                 <td>{{$product->created_at}}</td>
                 <td><a href="{{ route('product.edit' ,['product'=>$product->id] ) }}" class="btn btn-primary btn-xs">

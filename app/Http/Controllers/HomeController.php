@@ -15,13 +15,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $products = Product::query()->where('status','on')->get();
-        foreach ($products as $product)
-        {
-            $warehousedetailes[] = Product::getStockwarehousedetailesId($product->id);
-        }
-
-        return view('index',compact('warehousedetailes'));
+        return view('index');
     }
 
     public function account()

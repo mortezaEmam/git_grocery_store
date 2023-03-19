@@ -3,21 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\WareHouse;
+use App\Models\WareHouseDetaile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class WareHousController extends Controller
 {
-    public function index()
-    {
-        $warehouses = WareHouse::all();
-        return view('admin.warehouse.warehouse-index', compact('warehouses'));
-    }
-
     public function create()
     {
         $user = Auth::user();
-        return view('admin.warehouse.warehouse-create', compact('user'));
+        if (!filled($user->warehouse))
+            return view('admin.warehouse.warehouse-create', compact('user'));
+        return redirect()->back();
+
     }
 
     public function store(Request $request)
@@ -38,9 +36,8 @@ class WareHousController extends Controller
         return redirect()->route('warehouse.index');
     }
 
-    public function show($id)
+    public function show(WareHouse $warehouse)
     {
-        //
     }
 
     public function edit(WareHouse $warehouse)

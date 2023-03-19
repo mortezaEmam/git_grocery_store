@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\UpdateWareHouseDetaile;
 use App\Events\WareHouseCreate;
+use App\helpers\Helpers;
 use App\Models\Category;
 use App\Models\Description;
 use App\Models\File;
@@ -26,8 +27,6 @@ class ProductController extends Controller
     {
 
         $products = Product::query()->with('file')->get();
-
-
         return view('admin.product.product-index', compact('products'));
     }
 
@@ -121,11 +120,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $categories = Category::query()->where('parent_id', 0)->where('status', 'on')->orderBy('sort')->get();;
-
-
-        $url_file = Product::getImageUrl($product);
-        return view('single', compact('url_file', 'product', 'categories'));
+        return view('single', compact('product'));
     }
 
     /**
@@ -141,7 +136,7 @@ class ProductController extends Controller
         $warehousedetaile = $product->warehousedetaile()->first();
         $descriptions = $product->descriptions;
         $categories = Category::all();
-        $url_file = Product::getImageUrl($product);
+        $url_file = Helpers::getUrlImage($product);
         $data = [
             'product' => $product,
             'warehousedetaile' => $warehousedetaile,

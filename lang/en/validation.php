@@ -143,7 +143,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Custom Validation Language Lines
+    | Icostum Validation Language Lines
     |--------------------------------------------------------------------------
     |
     | Here you may specify custom validation messages for attributes using the
@@ -160,7 +160,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Custom Validation Attributes
+    | Icostum Validation Attributes
     |--------------------------------------------------------------------------
     |
     | The following language lines are used to swap our attribute placeholder

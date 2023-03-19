@@ -38,25 +38,8 @@ class Product extends Model
        $find_vahed=ProductCountingUnit::query()->where('id',$find_stock->product_counting_unit_id)->first();
        return ['id'=>$product,'stock'=>$find_stock->stock,'vahed'=>$find_vahed->title];
     }
-    public static function getImageUrl($product)
-    {
-        $find_image=$product->file;
-
-        if(filled($find_image))
-        {
-//            dd(Storage::url($find_image->url.$find_image->name));
-            $image_url=Storage::url($find_image->url.$find_image->name);
-
-        }
-        else
-        {
-            $image_url='';
-        }
-
-        return $image_url;
-    }
     public static function getAllProducts()
     {
-        return static::query()->where('status','on')->latest('created_at')->take('8')->get();
+        return static::query()->where('status','on')->latest()->with('file')->get() ;
     }
 }
